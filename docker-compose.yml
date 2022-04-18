@@ -1,0 +1,95 @@
+version: "3.7"
+
+services:
+    # image project
+    app-sisamorim:
+        container_name: api-sisamorim
+        image: laravel-app
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /var/www/html/
+        volumes:
+            - ./:/var/www/html
+        depends_on: 
+            - redis
+            - queue
+        networks: 
+            - jrbr
+    
+    # nginx
+    nginx:
+        container_name: nginx-sisamorim
+        image: nginx:latest
+        restart: unless-stopped
+        ports: 
+            - "9005:80"
+        volumes: 
+            - ./:/var/www/html
+            - ./docker/nginx/:/etc/nginx/conf.d/
+        networks: 
+            - jrbr
+
+    # db mysql
+    mysql:
+        image: mysql:5.7.22
+        container_name: mysql-sisamorim
+        restart: unless-stopped
+        environment: 
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+        volumes: 
+            - ./.docker/mysql/dbdata:/var/lib/mysql
+        ports: 
+            - "3306:3306"
+        networks: 
+            - jrbr
+
+    # queue
+    queue:
+        image: laravel-app
+        container_name: queue-sisamorim
+        restart: unless-stopped
+        command: "php artisan queue:work"
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        volumes: 
+            - ./:/var/www/html
+        depends_on: 
+            - redis
+        networks: 
+            - jrbr
+
+    # redis
+    redis:
+        container_name: redis-sisamorim
+        image: redis:latest
+        networks: 
+            - jrbr
+
+    portainer:
+        image: portainer/portainer:latest
+        container_name: portainer
+        restart: always
+        security_opt:
+            - no-new-privileges:true
+        volumes:
+            - /etc/localtime:/etc/localtime:ro
+            - /var/run/docker.sock:/var/run/docker.sock:ro
+            - portainer_data:/data
+        command: -H unix:///var/run/docker.sock
+        ports:
+            - 9006:9000
+        networks: 
+            - jrbr
+
+volumes:
+    portainer_data:
+
+networks:
+    jrbr:
+        driver: bridge
