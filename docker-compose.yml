@@ -24,7 +24,7 @@ services:
         image: nginx:latest
         restart: unless-stopped
         ports: 
-            - "9005:80"
+            - "9001:80"
         volumes: 
             - ./:/var/www/html
             - ./docker/nginx/:/etc/nginx/conf.d/
@@ -33,7 +33,7 @@ services:
 
     # db mysql
     mysql:
-        image: mysql:5.7.22
+        image: mysql:8.0
         container_name: mysql-sisamorim
         restart: unless-stopped
         environment: 
@@ -83,7 +83,7 @@ services:
             - portainer_data:/data
         command: -H unix:///var/run/docker.sock
         ports:
-            - 9006:9000
+            - 9000:9000
         networks: 
             - jrbr
 
