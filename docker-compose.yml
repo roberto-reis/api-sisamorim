@@ -43,7 +43,7 @@ services:
         volumes: 
             - ./.docker/mysql/dbdata:/var/lib/mysql
         ports: 
-            - "3307:3306"
+            - "3306:3306"
         networks: 
             - jrbr
 
