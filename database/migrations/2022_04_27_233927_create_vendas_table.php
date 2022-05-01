@@ -14,9 +14,9 @@ return new class extends Migration
     public function up()
     {
         Schema::create('vendas', function (Blueprint $table) {
-            $table->uuid()->primary();
-            $table->uuid('cliente_uuid');
-            $table->uuid('user_uuid');
+            $table->uuid('uuid')->primary();
+            $table->foreignUuid('cliente_uuid');
+            $table->foreignUuid('user_uuid');
             $table->string('situacao', 50);
             $table->string('tipo_venda', 50);
             $table->string('forma_pagamento', 50);
