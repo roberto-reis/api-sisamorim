@@ -23,6 +23,9 @@ return new class extends Migration
             $table->decimal('desconto_percentual', 10, 2);
             $table->decimal('valor_total_pedido', 10, 2);
             $table->timestamps();
+
+            $table->foreign('cliente_uuid')->references('uuid')->on('clientes');
+            $table->foreign('user_uuid')->references('uuid')->on('users');
         });
     }
 

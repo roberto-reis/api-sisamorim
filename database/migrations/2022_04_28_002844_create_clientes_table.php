@@ -13,15 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fornecedores', function (Blueprint $table) {
+        Schema::create('clientes', function (Blueprint $table) {
             $table->uuid()->primary();
-            $table->string('nome_rasao_social', 150)->index();
-            $table->string('email', 150)->unique();
-            $table->char('cpf', 11)->unique()->nullable();
-            $table->char('cnpj', 14)->unique()->nullable();
+            $table->boolean('situacao')->default(true)->comment('false = Inativo e true = Ativo');
+            $table->string('nome', 100);
+            $table->string('email', 100)->unique()->nullable();
+            $table->char('cpf_cnpj', 14)->unique()->nullable();
+            $table->char('rg', 20)->nullable();
+            $table->date('data_nascimento');
+            $table->char('celular', 11)->nullable();
             $table->string('inscricao_estadual', 30)->nullable();
             $table->string('inscricao_municipal', 30)->nullable();
-            $table->char('celular', 11)->nullable();
             $table->string('cep', 8)->nullable();
             $table->string('endereco', 150)->nullable();
             $table->string('numero', 20)->nullable();
@@ -29,14 +31,7 @@ return new class extends Migration
             $table->string('bairro', 50)->nullable();
             $table->string('cidade', 50)->nullable();
             $table->char('uf', 2)->nullable();
-            $table->text('observacao')->nullable();
-            $table->string('banco', 50)->nullable();
-            $table->integer('agencia')->nullable();
-            $table->integer('digito_agencia')->nullable();
-            $table->integer('conta')->nullable();
-            $table->integer('digito_conta')->nullable();
-            $table->string('tipo_conta')->nullable();
-            $table->string('tipo')->nullable();
+            $table->longText('observacao')->nullable();
             $table->timestamps();
         });
     }
@@ -48,6 +43,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fornecedores');
+        Schema::dropIfExists('clientes');
     }
 };
