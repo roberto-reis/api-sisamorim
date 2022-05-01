@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('orcamentos', function (Blueprint $table) {
-            $table->uuid('uuid');
+            $table->uuid('uuid')->primary();
             $table->foreignUuid('cliente_uuid');
             $table->foreignUuid('user_uuid');
             $table->longText('observacao')->nullable();

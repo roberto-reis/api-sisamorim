@@ -13,18 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('orcamentos_has_servicos', function (Blueprint $table) {
+        Schema::create('orcamentos_has_produtos', function (Blueprint $table) {
             $table->foreignUuid('orcamento_uuid');
-            $table->foreignUuid('servico_uuid');
+            $table->foreignUuid('produto_uuid');
             $table->integer('quantidade');
             $table->double('valor_unitario', 10, 2);
             $table->double('valor_subtotal', 10, 2);
             $table->timestamps();
 
-            $table->unique(['orcamento_uuid', 'servico_uuid'], 'orcamentos_has_servicos_uuid_foreign');
+            $table->unique(['orcamento_uuid', 'produto_uuid']);
 
             $table->foreign('orcamento_uuid')->references('uuid')->on('orcamentos');
-            $table->foreign('servico_uuid')->references('uuid')->on('servicos');
+            $table->foreign('produto_uuid')->references('uuid')->on('produtos');
         });
     }
 
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orcamentos_has_servicos');
+        Schema::dropIfExists('orcamentos_has_produtos');
     }
 };

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('servicos', function (Blueprint $table) {
-            $table->uuid('uuid');
+            $table->uuid('uuid')->primary();
             $table->string('tipo_servico', 50);
             $table->text('descricao');
             $table->double('preco_custo', 10, 2);
