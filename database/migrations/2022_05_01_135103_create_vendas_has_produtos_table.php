@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('vendas_has_produtos', function (Blueprint $table) {
             $table->foreignUuid('venda_uuid');
             $table->foreignUuid('produto_uuid');
-            $table->decimal('quantidade', 10, 2);
-            $table->decimal('desconto_percentual', 10, 2);
-            $table->decimal('valor_subtotal', 10, 2);
+            $table->double('quantidade', 10, 2);
+            $table->double('desconto_percentual', 10, 2);
+            $table->double('valor_subtotal', 10, 2);
             $table->timestamps();
 
             $table->unique(['venda_uuid', 'produto_uuid']);

@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('situacao', 50);
             $table->string('tipo_venda', 50);
             $table->string('forma_pagamento', 50);
-            $table->decimal('desconto_percentual', 10, 2);
-            $table->decimal('valor_total_pedido', 10, 2);
+            $table->double('desconto_percentual', 10, 2);
+            $table->double('valor_total_pedido', 10, 2);
             $table->timestamps();
 
             $table->foreign('cliente_uuid')->references('uuid')->on('clientes');

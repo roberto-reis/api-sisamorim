@@ -20,9 +20,9 @@ return new class extends Migration
             $table->longText('descricao');
             $table->char('unidade_medida', 3);
             $table->string('cor', 50);
-            $table->decimal('preco_custo', 10, 2);
-            $table->decimal('pecentual_lucro', 10, 2);
-            $table->decimal('estoque', 10, 2);
+            $table->double('preco_custo', 10, 2);
+            $table->double('pecentual_lucro', 10, 2);
+            $table->double('estoque', 10, 2);
             $table->string('foto_url', 150);
             $table->timestamps();
         });
