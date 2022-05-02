@@ -14,7 +14,6 @@ services:
             - ./:/var/www/html
         depends_on: 
             - redis
-            - queue
         networks: 
             - jrbr
     
@@ -33,7 +32,7 @@ services:
 
     # db mysql
     mysql:
-        image: mysql:8.0
+        image: mysql:5.7.22
         container_name: mysql-sisamorim
         restart: unless-stopped
         environment: 
@@ -61,6 +60,7 @@ services:
             - ./:/var/www/html
         depends_on: 
             - redis
+            - app-sisamorim
         networks: 
             - jrbr
 
@@ -83,7 +83,7 @@ services:
             - portainer_data:/data
         command: -H unix:///var/run/docker.sock
         ports:
-            - 9000:9000
+            - 9002:9000
         networks: 
             - jrbr
 

@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('pagamento_parcelas', function (Blueprint $table) {
             $table->uuid('uuid')->primary();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('role')->nullable();
-            $table->rememberToken();
+            $table->foreignUuid('conta_pagar_receber_uuid')->index();
+            $table->integer('parcela');
+            $table->date('vencimento');
+            $table->text('descricao');
+            $table->boolean('quitado')->nullable();
+            $table->date('data_pagamento')->index();
             $table->timestamps();
         });
     }
@@ -33,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('pagamento_parcelas');
     }
 };
