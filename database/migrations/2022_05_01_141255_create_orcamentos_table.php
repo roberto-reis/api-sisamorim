@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('orcamentos', function (Blueprint $table) {
             $table->uuid('uuid')->primary();
-            $table->foreignUuid('cliente_uuid');
-            $table->foreignUuid('user_uuid');
+            $table->foreignUuid('cliente_uuid')->index();
+            $table->foreignUuid('user_uuid')->index();
             $table->longText('observacao')->nullable();
             $table->string('forma_pagamento', 50);
             $table->double('desconto_percentual', 10, 2)->nullable();

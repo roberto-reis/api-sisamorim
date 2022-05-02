@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('orcamentos_has_produtos', function (Blueprint $table) {
-            $table->foreignUuid('orcamento_uuid');
-            $table->foreignUuid('produto_uuid');
+            $table->foreignUuid('orcamento_uuid')->index();
+            $table->foreignUuid('produto_uuid')->index();
             $table->integer('quantidade');
             $table->double('valor_unitario', 10, 2);
             $table->double('valor_subtotal', 10, 2);

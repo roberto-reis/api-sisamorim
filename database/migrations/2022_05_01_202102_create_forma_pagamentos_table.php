@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('forma_pagamentos', function (Blueprint $table) {
-            $table->uuid('uuid');
-            $table->string('nome', 100);
+            $table->uuid('uuid')->primary();
+            $table->string('nome', 100)->index();
             $table->timestamps();
         });
     }

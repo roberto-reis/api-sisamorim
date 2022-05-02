@@ -14,11 +14,13 @@ return new class extends Migration
     public function up()
     {
         Schema::create('pagamento_parcelas', function (Blueprint $table) {
-            $table->uuid('uuid');
-            $table->foreignUuid('conta_pagar_receber_uuid');
+            $table->uuid('uuid')->primary();
+            $table->foreignUuid('conta_pagar_receber_uuid')->index();
             $table->integer('parcela');
             $table->date('vencimento');
             $table->text('descricao');
+            $table->boolean('quitado')->nullable();
+            $table->date('data_pagamento')->index();
             $table->timestamps();
         });
     }
