@@ -23,7 +23,7 @@ class LoginAction
             throw new AuthException('Unauthorized', 401);
         }
 
-        return $this->respondWithToken($token);        
+        return $this->respondWithToken($token); // TODO: Criar um helper para retornar o token     
     }
 
     /**
