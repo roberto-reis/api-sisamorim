@@ -26,4 +26,11 @@ Route::prefix('v1')->group(function(){
             'Framework version' => app()->version(),
         ], 200);
     });
+
+
+    // Ratas Domain User
+    require base_path('/app/Domain/User/routes/index.php');
+
 });
+
+
