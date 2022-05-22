@@ -29,7 +29,7 @@ class RegisterRequest extends FormRequest
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => [
-                'required', 
+                'required',
                 'string',
                 Password::min(8)
                     ->mixedCase()
@@ -56,7 +56,7 @@ class RegisterRequest extends FormRequest
             'email.unique' => 'O email informado já está cadastrado',
             'password.required' => 'O campo senha é obrigatório',
             'password.string' => 'O campo senha deve ser um texto',
-            'password.confirmed' => 'As senhas não conferem',
+            'password.confirmed' => 'As senhas não são iguais',
             'password.min' => 'A senha deve ter no mínimo 8 caracteres',
         ];
     }

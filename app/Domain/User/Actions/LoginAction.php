@@ -20,10 +20,10 @@ class LoginAction
         ];
 
         if (! $token = auth()->attempt($credentials)) {
-            throw new AuthException('Unauthorized', 401);
+            throw new AuthException('Email ou senha inválidos', 401);
         }
 
-        return $this->respondWithToken($token); // TODO: Criar um helper para retornar o token     
+        return $this->respondWithToken($token); // TODO: Criar um helper para retornar o token
     }
 
     /**
