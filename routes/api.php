@@ -28,8 +28,11 @@ Route::prefix('v1')->group(function(){
     });
 
 
-    // Ratas Domain User
+    // Rotas Domain User
     require base_path('/app/Domain/User/routes/index.php');
+
+    // Rotas Domain Centro de Custo
+    require base_path('/app/Domain/CentroCusto/routes/index.php');
 
 });
 

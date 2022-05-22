@@ -50,6 +50,11 @@ Gerar a key do projeto Laravel
 $ php artisan key:generate
 ```
 
+Defina a chave secreta JWTAuth usada para assinar os tokens
+```bash
+$ php artisan jwt:secret
+```
+
 Acesse o projeto http://localhost:9001
 
 <br />
