@@ -12,22 +12,22 @@ services:
         working_dir: /var/www/html/
         volumes:
             - ./:/var/www/html
-        depends_on: 
+        depends_on:
             - redis
-        networks: 
+        networks:
             - jrbr
-    
+
     # nginx
     nginx:
         container_name: nginx-sisamorim
         image: nginx:latest
         restart: unless-stopped
-        ports: 
+        ports:
             - "9001:80"
-        volumes: 
+        volumes:
             - ./:/var/www/html
             - ./docker/nginx/:/etc/nginx/conf.d/
-        networks: 
+        networks:
             - jrbr
 
     # db mysql
@@ -35,16 +35,16 @@ services:
         image: mysql:5.7.22
         container_name: mysql-sisamorim
         restart: unless-stopped
-        environment: 
+        environment:
             MYSQL_DATABASE: ${DB_DATABASE}
             MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
             MYSQL_PASSWORD: ${DB_PASSWORD}
             MYSQL_USER: ${DB_USERNAME}
-        volumes: 
+        volumes:
             - ./.docker/mysql/dbdata:/var/lib/mysql
-        ports: 
-            - "3306:3306"
-        networks: 
+        ports:
+            - "3308:3306"
+        networks:
             - jrbr
 
     # queue
@@ -56,39 +56,20 @@ services:
         build:
             context: ./
             dockerfile: Dockerfile
-        volumes: 
+        volumes:
             - ./:/var/www/html
-        depends_on: 
+        depends_on:
             - redis
             - app-sisamorim
-        networks: 
+        networks:
             - jrbr
 
     # redis
     redis:
         container_name: redis-sisamorim
         image: redis:latest
-        networks: 
+        networks:
             - jrbr
-
-    portainer:
-        image: portainer/portainer:latest
-        container_name: portainer
-        restart: always
-        security_opt:
-            - no-new-privileges:true
-        volumes:
-            - /etc/localtime:/etc/localtime:ro
-            - /var/run/docker.sock:/var/run/docker.sock:ro
-            - portainer_data:/data
-        command: -H unix:///var/run/docker.sock
-        ports:
-            - 9002:9000
-        networks: 
-            - jrbr
-
-volumes:
-    portainer_data:
 
 networks:
     jrbr:

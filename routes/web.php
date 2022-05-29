@@ -16,7 +16,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return response()->json([
         'APP' => 'api-sisamorim',
-        'version API' => '1.0',
         'Framework version' => app()->version(),
     ], 200);
 });
