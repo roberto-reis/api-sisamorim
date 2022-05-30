@@ -2,7 +2,7 @@ version: "3.7"
 
 services:
     # image project
-    app-sisamorim:
+    app:
         container_name: api-sisamorim
         image: laravel-app
         build:
@@ -47,29 +47,29 @@ services:
         networks:
             - jrbr
 
-    # queue
-    queue:
-        image: laravel-app
-        container_name: queue-sisamorim
-        restart: unless-stopped
-        command: "php artisan queue:work"
-        build:
-            context: ./
-            dockerfile: Dockerfile
-        volumes:
-            - ./:/var/www/html
-        depends_on:
-            - redis
-            - app-sisamorim
-        networks:
-            - jrbr
-
     # redis
     redis:
         container_name: redis-sisamorim
         image: redis:latest
         networks:
             - jrbr
+
+    # Config queue
+    # queue:
+    #     image: laravel-app
+    #     container_name: queue-sisamorim
+    #     restart: unless-stopped
+    #     command: "php artisan queue:work"
+    #     build:
+    #         context: ./
+    #         dockerfile: Dockerfile
+    #     volumes:
+    #         - ./:/var/www/html
+    #     depends_on:
+    #         - redis
+    #         - app
+    #     networks:
+    #         - jrbr
 
 networks:
     jrbr:

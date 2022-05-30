@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Domain\User\Controllers\AuthController;
 
 
-Route::controller(CentroCustoController::class)->prefix('centro-custos')->middleware('auth.jwt')->group(function () {
+Route::controller(CentroCustoController::class)->prefix('centro-custo')
+->middleware('auth.jwt')->group(function () {
     Route::get('/', 'index');
 });
 
