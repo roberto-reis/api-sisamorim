@@ -18,4 +18,12 @@ class CentroCustoController extends Controller
             'message' => 'centro-custos'
         ]);
     }
+
+    public function store()
+    {
+
+        return response()->json([
+            'message' => 'centro-custo.store'
+        ]);
+    }
 }

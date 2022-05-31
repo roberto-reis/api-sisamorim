@@ -5,14 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Domain\User\Controllers\AuthController;
 
 
-Route::controller(CentroCustoController::class)->prefix('centro-custo')
-->middleware('auth.jwt')->group(function () {
-    Route::get('/', 'index');
+Route::middleware('auth.jwt')->group(function () {
+
+    Route::controller(CentroCustoController::class)->prefix('centro-custo')->group(function() {
+        Route::get('/', 'index');
+        Route::post('/store', 'store');
+        Route::put('/update', 'update');
+        Route::delete('/delete', 'delete');
+    });
+
+
 });
-
-
-// Route::controller(AuthController::class)->group(function () {
-//     Route::post('/login', 'login')->name('login');
-//     Route::post('/register', 'register')->name('register');
-//     Route::post('/logout', 'logout')->name('logout');
-// });
