@@ -10,8 +10,8 @@ Route::middleware('auth.jwt')->group(function () {
     Route::controller(CentroCustoController::class)->prefix('centro-custo')->group(function() {
         Route::get('/', 'index');
         Route::post('/store', 'store');
-        Route::put('/update', 'update');
-        Route::delete('/delete', 'delete');
+        Route::put('/update/{uid}', 'update');
+        Route::delete('/delete/{uid}', 'delete');
     });
 
 
