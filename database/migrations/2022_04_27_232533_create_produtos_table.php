@@ -15,16 +15,19 @@ return new class extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->uuid()->primary();
-            $table->string('codigo', 100);
+            $table->foreignUuid('centro_custo_uuid');
+            $table->string('codigo', 100)->unique();
             $table->string('nome', 150)->index();
             $table->longText('descricao');
             $table->char('unidade_medida', 3);
             $table->string('cor', 50)->nullable();
             $table->double('preco_custo', 10, 2)->nullable();
             $table->double('pecentual_lucro', 10, 2)->nullable();
-            $table->double('estoque', 10, 2)->default(0);
-            $table->string('foto_url', 150)->nullable();
+            $table->integer('estoque')->default(0);
+            $table->longText('foto_url')->nullable();
             $table->timestamps();
+
+            $table->foreign('centro_custo_uuid')->references('uuid')->on('centro_custos');
         });
     }
 

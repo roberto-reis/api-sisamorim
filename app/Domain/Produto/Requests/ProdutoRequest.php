@@ -3,6 +3,7 @@
 namespace App\Domain\Produto\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProdutoRequest extends FormRequest
 {
@@ -24,14 +25,15 @@ class ProdutoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'codigo' => ['required', 'string', 'max:100'],
+            'centro_custo_uuid' => ['required', 'uuid', 'exists:centro_custos,uuid'],
+            'codigo' => ['required', 'string', 'max:100', Rule::unique('produtos')->ignore($this->id)],
             'nome' => ['required', 'string', 'max:150'],
             'descricao' => ['required', 'string'],
             'unidade_medida' => ['required', 'string', 'max:3'],
-            'cor' => ['null', 'string', 'max:50'],
-            'preco_custo' => ['null', 'numeric'],
-            'pecentual_lucro' => ['null', 'numeric'],
-            'estoque' => ['null', 'numeric'],
+            'cor' => ['nullable', 'string', 'max:50'],
+            'preco_custo' => ['nullable', 'numeric'],
+            'pecentual_lucro' => ['nullable', 'numeric'],
+            'estoque' => ['nullable', 'integer'],
         ];
     }
 
@@ -41,6 +43,9 @@ class ProdutoRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'centro_custo_uuid.required' => 'O centro de custo é obrigatório',
+            'centro_custo_uuid.uuid' => 'O centro de custo deve ser uma UUID válida',
+            'centro_custo_uuid.exists' => 'O centro de custo informado não existe',
             'codigo.required' => 'O campo código é obrigatório',
             'codigo.string' => 'O campo código deve ser uma string',
             'codigo.max' => 'O campo código deve ter no máximo 100 caracteres',
@@ -56,7 +61,7 @@ class ProdutoRequest extends FormRequest
             'cor.max' => 'O campo cor deve ter no máximo 50 caracteres',
             'preco_custo.numeric' => 'O campo preço de custo deve ser um número',
             'pecentual_lucro.numeric' => 'O campo percentual de lucro deve ser um número',
-            'estoque.numeric' => 'O campo estoque deve ser um número'
+            'estoque.integer' => 'O campo estoque deve ser um número'
         ];
     }
 }

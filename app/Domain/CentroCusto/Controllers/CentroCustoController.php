@@ -24,6 +24,7 @@ class CentroCustoController extends Controller
     {
         try {
             $centroCustos = $repository->getCentroCusto($request);
+
             return response()->json([
                 'success' => true,
                 'message' => 'Dados retornados com sucesso.',
@@ -42,8 +43,8 @@ class CentroCustoController extends Controller
     public function store(CentroCustoRequest $request, CreateCentroCustoAction $createCentroCusto)
     {
         try {
-            $centroCusto = CentroCustoDTO::fromRequest($request);
-            $createCentroCusto($centroCusto);
+            $centroCustoValidado = CentroCustoDTO::fromRequest($request);
+            $centroCusto = $createCentroCusto($centroCustoValidado);
         } catch (\Exception $e) {
             Log::error('error ao savar Centro de Custo: ', [$e->getMessage()]);
         }
@@ -51,14 +52,22 @@ class CentroCustoController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Centro de Custo criado com sucesso',
+            'data' => $centroCusto
         ], 201);
     }
 
     public function update($uid, CentroCustoRequest $request, UpdateCentroCustoAction $updateCentroCusto)
     {
         try {
-            $centroCusto = CentroCustoDTO::fromRequest($request);
-            $updateCentroCusto($centroCusto, $uid);
+            $centroCustoValidado = CentroCustoDTO::fromRequest($request);
+            $centroCusto = $updateCentroCusto($centroCustoValidado, $uid);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Centro de Custo atualizado com sucesso',
+                'data' => $centroCusto
+            ], 200);
+
         } catch (\PDOException | \Exception $e) {
             if ($e instanceof \PDOException) {
                 Log::error('error ao atualizar Centro de Custo: ', [$e->getMessage()]);
@@ -68,17 +77,19 @@ class CentroCustoController extends Controller
                 'message' => $e->getMessage(),
             ], 400);
         }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Centro de Custo atualizado com sucesso',
-        ], 200);
     }
 
     public function delete($uid, DeleteCentroCustoAction $deleteCentroCusto)
     {
         try {
-            $deleteCentroCusto($uid);
+            $centroCusto = $deleteCentroCusto($uid);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Centro de Custo deletado com sucesso',
+                'data' => $centroCusto
+            ], 200);
+
         } catch (\PDOException | \Exception $e) {
             if ($e instanceof \Exception) {
                 Log::error('error ao deletar Centro de Custo: ', [$e->getMessage()]);
@@ -88,11 +99,6 @@ class CentroCustoController extends Controller
                 'message' => $e->getMessage(),
             ], 400);
         }
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Centro de Custo deletado com sucesso',
-        ], 200);
     }
 
 

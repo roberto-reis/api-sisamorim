@@ -3,7 +3,7 @@
 namespace App\Domain\CentroCusto\Repositories;
 
 use Illuminate\Http\Request;
-use App\Domain\CentroCusto\Model\CentroCusto;
+use App\Domain\CentroCusto\Models\CentroCusto;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class CentroCustoRepository

@@ -4,7 +4,6 @@ namespace App\Domain\CentroCusto\routes;
 
 use App\Domain\CentroCusto\Controllers\CentroCustoController;
 use Illuminate\Support\Facades\Route;
-use App\Domain\User\Controllers\AuthController;
 
 
 Route::middleware('auth.jwt')->group(function () {

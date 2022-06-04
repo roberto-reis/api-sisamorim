@@ -11,13 +11,13 @@ class Produto extends Model
     use HasFactory;
     use UuidTrait;
 
-    protected $table = 'produto';
+    protected $table = 'produtos';
     protected $primaryKey = 'uuid';
     public $incrementing = false;
     protected $keyType = 'string';
 
-
     protected $fillable = [
+        'centro_custo_uuid',
         'codigo',
         'nome',
         'descricao',
@@ -28,4 +28,5 @@ class Produto extends Model
         'estoque',
         'foto_url'
     ];
+
 }
