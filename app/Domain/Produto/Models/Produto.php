@@ -18,7 +18,7 @@ class Produto extends Model
 
 
     protected $fillable = [
-        'codigo_barra',
+        'codigo',
         'nome',
         'descricao',
         'unidade_medida',

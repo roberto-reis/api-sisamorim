@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->uuid()->primary();
-            $table->string('codigo_barra', 100);
+            $table->string('codigo', 100);
             $table->string('nome', 150)->index();
             $table->longText('descricao');
             $table->char('unidade_medida', 3);
