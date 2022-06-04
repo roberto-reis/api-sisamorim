@@ -8,6 +8,8 @@ services:
         build:
             context: ./
             dockerfile: Dockerfile
+            args:
+                user: roberto
         restart: unless-stopped
         working_dir: /var/www/html/
         volumes:

@@ -29,7 +29,7 @@ class AuthController extends Controller
             $userLogado = auth()->user();
 
             return response()->json([
-                'error' => false,
+                'success' => true,
                 'message' => 'login feito com sucesso',
                 'token' => $loginToken,
                 'user' => $userLogado
@@ -37,7 +37,7 @@ class AuthController extends Controller
 
         } catch (AuthException $e) {
             return response()->json([
-                'error' => true,
+                'success' => false,
                 'message' => $e->getMessage()
             ], $e->getCode());
         }
@@ -57,7 +57,7 @@ class AuthController extends Controller
             $userLogado = auth()->user();
 
             return response()->json([
-                'error' => false,
+                'success' => true,
                 'message' => 'registro feito com sucesso',
                 'token' => $userToken,
                 'user' => $userLogado

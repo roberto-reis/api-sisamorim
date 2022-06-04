@@ -9,20 +9,35 @@ use App\Domain\CentroCusto\Requests\CentroCustoRequest;
 use App\Domain\CentroCusto\Actions\CreateCentroCustoAction;
 use App\Domain\CentroCusto\Actions\DeleteCentroCustoAction;
 use App\Domain\CentroCusto\Actions\UpdateCentroCustoAction;
+use App\Domain\CentroCusto\Model\CentroCusto;
+use App\Domain\CentroCusto\Repositories\CentroCustoRepository;
+use Illuminate\Http\Request;
 
 class CentroCustoController extends Controller
 {
+
     public function __construct()
     {
         // $this->middleware('auth.jwt');
     }
 
-    public function index()
+    public function index(Request $request, CentroCustoRepository $repository)
     {
+        try {
+            $centroCustos = $repository->getCentroCusto($request);
+            return response()->json([
+                'success' => true,
+                'message' => 'Dados retornados com sucesso.',
+                'data' => $centroCustos,
+            ], 200);
 
-        return response()->json([
-            'message' => 'centro-custos'
-        ]);
+        } catch (\Exception $e) {
+            Log::error('Ocorreu um erro ao buscar os centros de custo', [$e->getMessage()]);
+            return response()->json([
+                'success' => false,
+                'message' => 'Ocorreu um erro ao buscar os centros de custo.'
+            ], 500);
+        }
     }
 
     public function store(CentroCustoRequest $request, CreateCentroCustoAction $createCentroCusto)
