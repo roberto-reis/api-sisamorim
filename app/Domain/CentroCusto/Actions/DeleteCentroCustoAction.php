@@ -7,9 +7,9 @@ use App\Domain\CentroCusto\DTO\CentroCustoDTO;
 
 class DeleteCentroCustoAction
 {
-    public function __invoke($uid = null)
+    public function __invoke($uuid = null)
     {
-        $centroCusto = CentroCusto::find($uid);
+        $centroCusto = CentroCusto::find($uuid);
 
         if (!$centroCusto) {
             throw new \Exception('Centro de Custo não encontrado');

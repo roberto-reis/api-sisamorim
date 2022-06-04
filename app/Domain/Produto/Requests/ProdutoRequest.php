@@ -26,7 +26,7 @@ class ProdutoRequest extends FormRequest
     {
         return [
             'centro_custo_uuid' => ['required', 'uuid', 'exists:centro_custos,uuid'],
-            'codigo' => ['required', 'string', 'max:100', Rule::unique('produtos')->ignore($this->id)],
+            'codigo' => ['required', 'string', 'max:100', Rule::unique('produtos')->ignore($this->uuid, 'uuid')],
             'nome' => ['required', 'string', 'max:150'],
             'descricao' => ['required', 'string'],
             'unidade_medida' => ['required', 'string', 'max:3'],
@@ -49,6 +49,7 @@ class ProdutoRequest extends FormRequest
             'codigo.required' => 'O campo código é obrigatório',
             'codigo.string' => 'O campo código deve ser uma string',
             'codigo.max' => 'O campo código deve ter no máximo 100 caracteres',
+            'codigo.unique' => 'O código informado já está cadastrado',
             'nome.required' => 'O campo nome é obrigatório',
             'nome.string' => 'O campo nome deve ser uma string',
             'nome.max' => 'O campo nome deve ter no máximo 100 caracteres',

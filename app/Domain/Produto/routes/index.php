@@ -11,7 +11,7 @@ Route::middleware('auth.jwt')->group(function () {
     Route::controller(ProdutoController::class)->prefix('produto')->group(function() {
         Route::get('/', 'index');
         Route::post('/store', 'store');
-        // Route::put('{uid}/update', 'update');
+        Route::put('{uuid}/update', 'update');
         // Route::delete('{uid}/delete', 'delete');
     });
 

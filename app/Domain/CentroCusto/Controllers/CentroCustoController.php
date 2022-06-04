@@ -56,11 +56,11 @@ class CentroCustoController extends Controller
         ], 201);
     }
 
-    public function update($uid, CentroCustoRequest $request, UpdateCentroCustoAction $updateCentroCusto)
+    public function update($uuid, CentroCustoRequest $request, UpdateCentroCustoAction $updateCentroCusto)
     {
         try {
             $centroCustoValidado = CentroCustoDTO::fromRequest($request);
-            $centroCusto = $updateCentroCusto($centroCustoValidado, $uid);
+            $centroCusto = $updateCentroCusto($centroCustoValidado, $uuid);
 
             return response()->json([
                 'success' => true,
@@ -69,20 +69,21 @@ class CentroCustoController extends Controller
             ], 200);
 
         } catch (\PDOException | \Exception $e) {
-            if ($e instanceof \PDOException) {
-                Log::error('error ao atualizar Centro de Custo: ', [$e->getMessage()]);
+            if (!$e instanceof \PDOException) {
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage(),
+                ], 400);
             }
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+
+            Log::error('error ao atualizar Centro de Custo: ', [$e->getMessage()]);
         }
     }
 
-    public function delete($uid, DeleteCentroCustoAction $deleteCentroCusto)
+    public function delete($uuid, DeleteCentroCustoAction $deleteCentroCusto)
     {
         try {
-            $centroCusto = $deleteCentroCusto($uid);
+            $centroCusto = $deleteCentroCusto($uuid);
 
             return response()->json([
                 'success' => true,
@@ -92,12 +93,13 @@ class CentroCustoController extends Controller
 
         } catch (\PDOException | \Exception $e) {
             if ($e instanceof \Exception) {
-                Log::error('error ao deletar Centro de Custo: ', [$e->getMessage()]);
+                return response()->json([
+                    'success' => false,
+                    'message' => $e->getMessage(),
+                ], 400);
             }
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage(),
-            ], 400);
+
+            Log::error('error ao deletar Centro de Custo: ', [$e->getMessage()]);
         }
     }
 

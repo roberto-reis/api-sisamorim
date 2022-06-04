@@ -7,9 +7,9 @@ use App\Domain\CentroCusto\DTO\CentroCustoDTO;
 
 class UpdateCentroCustoAction
 {
-    public function __invoke(CentroCustoDTO $dto, $uid = null)
+    public function __invoke(CentroCustoDTO $dto, $uuid = null)
     {
-        $centroCusto = CentroCusto::find($uid);
+        $centroCusto = CentroCusto::find($uuid);
 
         if (!$centroCusto) {
             throw new \Exception('Centro de Custo não encontrado ou não existe');
