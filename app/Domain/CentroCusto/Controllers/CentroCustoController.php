@@ -9,7 +9,6 @@ use App\Domain\CentroCusto\Requests\CentroCustoRequest;
 use App\Domain\CentroCusto\Actions\CreateCentroCustoAction;
 use App\Domain\CentroCusto\Actions\DeleteCentroCustoAction;
 use App\Domain\CentroCusto\Actions\UpdateCentroCustoAction;
-use App\Domain\CentroCusto\Model\CentroCusto;
 use App\Domain\CentroCusto\Repositories\CentroCustoRepository;
 use Illuminate\Http\Request;
 

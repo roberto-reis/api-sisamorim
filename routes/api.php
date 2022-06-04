@@ -34,6 +34,9 @@ Route::prefix('v1')->group(function(){
     // Rotas Domain Centro de Custo
     require base_path('/app/Domain/CentroCusto/routes/index.php');
 
+    // Rotas Domain Produto
+    require base_path('/app/Domain/Produto/routes/index.php');
+
 });
 
 

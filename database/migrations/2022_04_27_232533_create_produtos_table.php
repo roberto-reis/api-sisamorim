@@ -19,11 +19,11 @@ return new class extends Migration
             $table->string('nome', 150)->index();
             $table->longText('descricao');
             $table->char('unidade_medida', 3);
-            $table->string('cor', 50);
-            $table->double('preco_custo', 10, 2);
-            $table->double('pecentual_lucro', 10, 2);
-            $table->double('estoque', 10, 2);
-            $table->string('foto_url', 150);
+            $table->string('cor', 50)->nullable();
+            $table->double('preco_custo', 10, 2)->nullable();
+            $table->double('pecentual_lucro', 10, 2)->nullable();
+            $table->double('estoque', 10, 2)->default(0);
+            $table->string('foto_url', 150)->nullable();
             $table->timestamps();
         });
     }

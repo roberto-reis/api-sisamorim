@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\CentroCusto\Model;
+namespace App\Domain\CentroCusto\Models;
 
 use App\Models\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;

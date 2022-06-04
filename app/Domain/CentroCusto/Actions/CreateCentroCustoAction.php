@@ -2,8 +2,8 @@
 
 namespace App\Domain\CentroCusto\Actions;
 
-use App\Domain\CentroCusto\Model\CentroCusto;
 use App\Domain\CentroCusto\DTO\CentroCustoDTO;
+use App\Domain\CentroCusto\Models\CentroCusto;
 
 class CreateCentroCustoAction
 {
