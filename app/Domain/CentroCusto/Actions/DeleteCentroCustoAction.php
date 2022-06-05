@@ -2,21 +2,22 @@
 
 namespace App\Domain\CentroCusto\Actions;
 
-use App\Domain\CentroCusto\Model\CentroCusto;
-use App\Domain\CentroCusto\DTO\CentroCustoDTO;
+use App\Exceptions\CentroCustoException;
+use App\Domain\CentroCusto\Models\CentroCusto;
 
 class DeleteCentroCustoAction
 {
-    public function __invoke($uid = null)
+    public function __invoke($uuid = null)
     {
-        $centroCusto = CentroCusto::find($uid);
+        $centroCusto = CentroCusto::find($uuid);
 
         if (!$centroCusto) {
-            throw new \Exception('Centro de Custo não encontrado');
+            throw new CentroCustoException('Centro de Custo não encontrado');
         }
 
         $centroCusto->delete();
 
+        return $centroCusto;
     }
 
 }

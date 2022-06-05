@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Domain\CentroCusto\routes;
+namespace App\Domain\Produto\routes;
 
-use App\Domain\CentroCusto\Controllers\CentroCustoController;
+use App\Domain\Produto\Controllers\ProdutoController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth.jwt')->group(function () {
 
-    Route::controller(CentroCustoController::class)->prefix('centro-custo')->group(function() {
+    Route::controller(ProdutoController::class)->prefix('produto')->group(function() {
         Route::get('/', 'index');
         Route::post('/store', 'store');
         Route::put('{uuid}/update', 'update');

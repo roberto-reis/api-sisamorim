@@ -25,7 +25,7 @@ class CentroCustoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome' => ['required', 'string', 'max:100', Rule::unique('centro_custos')->ignore($this->id)],
+            'nome' => ['required', 'string', 'max:100', Rule::unique('centro_custos')->ignore($this->uuid, 'uuid')],
         ];
     }
 
