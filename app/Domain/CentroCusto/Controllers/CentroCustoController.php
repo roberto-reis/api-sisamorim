@@ -10,6 +10,7 @@ use App\Domain\CentroCusto\Actions\CreateCentroCustoAction;
 use App\Domain\CentroCusto\Actions\DeleteCentroCustoAction;
 use App\Domain\CentroCusto\Actions\UpdateCentroCustoAction;
 use App\Domain\CentroCusto\Repositories\CentroCustoRepository;
+use App\Exceptions\CentroCustoException;
 use Illuminate\Http\Request;
 
 class CentroCustoController extends Controller
@@ -32,11 +33,7 @@ class CentroCustoController extends Controller
             ], 200);
 
         } catch (\Exception $e) {
-            Log::error('Ocorreu um erro ao buscar os centros de custo', [$e->getMessage()]);
-            return response()->json([
-                'success' => false,
-                'message' => 'Ocorreu um erro ao buscar os centros de custo.'
-            ], 500);
+            Log::error('Ocorreu um erro ao buscar os centros de custo: ', [$e->getMessage()]);
         }
     }
 
@@ -68,15 +65,14 @@ class CentroCustoController extends Controller
                 'data' => $centroCusto
             ], 200);
 
-        } catch (\PDOException | \Exception $e) {
-            if (!$e instanceof \PDOException) {
-                return response()->json([
-                    'success' => false,
-                    'message' => $e->getMessage(),
-                ], 400);
-            }
+        } catch (CentroCustoException $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage(),
+            ], $exception->getCode());
 
-            Log::error('error ao atualizar Centro de Custo: ', [$e->getMessage()]);
+        } catch (\Exception $exception) {
+            Log::error('error ao atualizar Centro de Custo: ', [$exception->getMessage()]);
         }
     }
 
@@ -91,15 +87,14 @@ class CentroCustoController extends Controller
                 'data' => $centroCusto
             ], 200);
 
-        } catch (\PDOException | \Exception $e) {
-            if ($e instanceof \Exception) {
-                return response()->json([
-                    'success' => false,
-                    'message' => $e->getMessage(),
-                ], 400);
-            }
+        } catch (CentroCustoException $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage(),
+            ], $exception->getCode());
 
-            Log::error('error ao deletar Centro de Custo: ', [$e->getMessage()]);
+        } catch (\Exception $exception) {
+            Log::error('error ao deletar Centro de Custo: ', [$exception->getMessage()]);
         }
     }
 

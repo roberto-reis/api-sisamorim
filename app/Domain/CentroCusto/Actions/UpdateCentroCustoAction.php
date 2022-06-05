@@ -4,6 +4,7 @@ namespace App\Domain\CentroCusto\Actions;
 
 use App\Domain\CentroCusto\Models\CentroCusto;
 use App\Domain\CentroCusto\DTO\CentroCustoDTO;
+use App\Exceptions\CentroCustoException;
 
 class UpdateCentroCustoAction
 {
@@ -12,7 +13,7 @@ class UpdateCentroCustoAction
         $centroCusto = CentroCusto::find($uuid);
 
         if (!$centroCusto) {
-            throw new \Exception('Centro de Custo não encontrado ou não existe');
+            throw new CentroCustoException('Centro de Custo não encontrado ou não existe');
         }
 
         $centroCusto->nome = $dto->nome;
