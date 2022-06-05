@@ -3,19 +3,32 @@
 namespace App\Domain\Produto\Controllers;
 
 use App\Domain\Produto\Actions\CreateProdutoAction;
+use App\Domain\Produto\Actions\DeleteProdutoAction;
 use App\Domain\Produto\Actions\UpdateProdutoAction;
 use App\Domain\Produto\DTO\ProdutoDTO;
+use App\Domain\Produto\Repositories\ProdutoRepository;
 use App\Domain\Produto\Requests\ProdutoRequest;
 use App\Exceptions\ProdutoException;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Validation\ValidationException;
 
 class ProdutoController extends Controller
 {
-    public function index()
+    public function index(Request $request, ProdutoRepository $repository)
     {
-        return 'ProdutoController index';
+        try {
+            $produto = $repository->getProdutos($request);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Dados retornados com sucesso.',
+                'data' => $produto,
+            ], 200);
+
+        } catch (\Exception $e) {
+            Log::error('Ocorreu um erro ao buscar produto: ', [$e->getMessage()]);
+        }
     }
 
     public function store(ProdutoRequest $request, CreateProdutoAction $createAction)
@@ -54,6 +67,27 @@ class ProdutoController extends Controller
             ], $exception->getCode());
         } catch (\Exception $exception) {
             Log::error('error ao atualizar Produto: ', [$exception->getMessage()]);
+        }
+    }
+
+    public function delete($uuid, DeleteProdutoAction $actionProduto)
+    {
+        try {
+            $produto = $actionProduto($uuid);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Produto deletado com sucesso',
+                'data' => $produto
+            ], 200);
+
+        } catch (ProdutoException $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage(),
+            ], $exception->getCode());
+        } catch (\Exception $exception) {
+            Log::error('error ao deletado Produto: ', [$exception->getMessage()]);
         }
     }
 }

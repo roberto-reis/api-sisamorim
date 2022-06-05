@@ -4,6 +4,7 @@ namespace App\Domain\Produto\Models;
 
 use App\Models\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
+use App\Domain\CentroCusto\Models\CentroCusto;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Produto extends Model
@@ -28,5 +29,10 @@ class Produto extends Model
         'estoque',
         'foto_url'
     ];
+
+    public function centroCusto()
+    {
+        return $this->belongsTo(CentroCusto::class, 'centro_custo_uuid', 'uuid');
+    }
 
 }

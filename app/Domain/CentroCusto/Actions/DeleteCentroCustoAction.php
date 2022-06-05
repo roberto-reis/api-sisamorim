@@ -3,7 +3,6 @@
 namespace App\Domain\CentroCusto\Actions;
 
 use App\Domain\CentroCusto\Models\CentroCusto;
-use App\Domain\CentroCusto\DTO\CentroCustoDTO;
 
 class DeleteCentroCustoAction
 {
@@ -17,6 +16,7 @@ class DeleteCentroCustoAction
 
         $centroCusto->delete();
 
+        return $centroCusto;
     }
 
 }

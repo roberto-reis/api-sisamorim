@@ -12,7 +12,7 @@ Route::middleware('auth.jwt')->group(function () {
         Route::get('/', 'index');
         Route::post('/store', 'store');
         Route::put('{uuid}/update', 'update');
-        // Route::delete('{uid}/delete', 'delete');
+        Route::delete('{uuid}/delete', 'delete');
     });
 
 });
