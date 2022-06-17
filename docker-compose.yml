@@ -8,8 +8,6 @@ services:
         build:
             context: ./
             dockerfile: Dockerfile
-            args:
-                user: roberto
         restart: unless-stopped
         working_dir: /var/www/html/
         volumes:
@@ -17,7 +15,7 @@ services:
         depends_on:
             - redis
         networks:
-            - jrbr
+            - rede_sisamorim
 
     # nginx
     nginx:
@@ -25,54 +23,38 @@ services:
         image: nginx:latest
         restart: unless-stopped
         ports:
-            - "9001:80"
+            - 9001:80
         volumes:
             - ./:/var/www/html
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks:
-            - jrbr
+            - rede_sisamorim
 
     # db mysql
     mysql:
-        image: mysql:5.7.22
+        image: mysql:5.7
         container_name: mysql-sisamorim
         restart: unless-stopped
         environment:
-            MYSQL_DATABASE: ${DB_DATABASE}
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-            MYSQL_PASSWORD: ${DB_PASSWORD}
-            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: sisamorim
+            MYSQL_USER: admin
+            MYSQL_PASSWORD: admin
         volumes:
             - ./.docker/mysql/dbdata:/var/lib/mysql
         ports:
-            - "3308:3306"
+            - 3307:3306
         networks:
-            - jrbr
+            - rede_sisamorim
 
     # redis
     redis:
         container_name: redis-sisamorim
         image: redis:latest
         networks:
-            - jrbr
-
-    # Config queue
-    # queue:
-    #     image: laravel-app
-    #     container_name: queue-sisamorim
-    #     restart: unless-stopped
-    #     command: "php artisan queue:work"
-    #     build:
-    #         context: ./
-    #         dockerfile: Dockerfile
-    #     volumes:
-    #         - ./:/var/www/html
-    #     depends_on:
-    #         - redis
-    #         - app
-    #     networks:
-    #         - jrbr
+            - rede_sisamorim
 
 networks:
-    jrbr:
+    rede_sisamorim:
+        name: rede_sisamorim
         driver: bridge
