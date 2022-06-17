@@ -1,5 +1,9 @@
 FROM php:8.1.1-fpm
 
+# Arguments defined in docker-compose.yml
+ARG user=sisamorim
+ARG uid=1000
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     git \
@@ -20,7 +24,9 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd sockets
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Create system user to run Composer and Artisan Commands
-RUN usermod -u 1000 www-data && groupmod -g 1000 www-data
+RUN useradd -G www-data,root -u $uid -d /home/$user $user
+RUN mkdir -p /home/$user/.composer && \
+    chown -R $user:$user /home/$user
 
 # Install redis
 RUN pecl install -o -f redis \
@@ -29,3 +35,5 @@ RUN pecl install -o -f redis \
 
 # Set working directory
 WORKDIR /var/www
+
+USER $user
