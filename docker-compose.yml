@@ -20,7 +20,7 @@ services:
     # nginx
     nginx:
         container_name: nginx-sisamorim
-        image: nginx:latest
+        image: nginx:alpine
         restart: unless-stopped
         ports:
             - 9001:80
