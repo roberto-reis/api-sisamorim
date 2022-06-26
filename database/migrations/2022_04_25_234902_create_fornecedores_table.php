@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('cidade', 50)->nullable();
             $table->char('uf', 2)->nullable();
             $table->text('observacao')->nullable();
-            $table->string('tipo_fornecedor')->nullable();
+            $table->string('tipo_fornecedor', 20);
             $table->string('banco', 50)->nullable();
             $table->integer('agencia')->nullable();
             $table->integer('digito_agencia')->nullable();
