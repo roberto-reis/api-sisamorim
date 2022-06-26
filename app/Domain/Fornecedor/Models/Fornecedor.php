@@ -32,12 +32,13 @@ class Fornecedor extends Model
         'cidade',
         'uf',
         'observacao',
+        'tipo_fornecedor',
         'banco',
         'agencia',
         'digito_agencia',
         'conta',
         'digito_conta',
         'tipo_conta',
-        'tipo'
+        'status',
     ];
 }
