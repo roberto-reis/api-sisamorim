@@ -21,7 +21,7 @@ return new class extends Migration
             $table->char('cnpj', 14)->unique()->nullable();
             $table->string('inscricao_estadual', 30)->nullable();
             $table->string('inscricao_municipal', 30)->nullable();
-            $table->char('celular', 11)->nullable();
+            $table->char('celular', 11);
             $table->string('cep', 8)->nullable();
             $table->string('endereco', 150)->nullable();
             $table->string('numero', 20)->nullable();

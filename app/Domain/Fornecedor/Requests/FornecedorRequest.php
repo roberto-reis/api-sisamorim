@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Domain\Fornecedor\Requests;
 
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
@@ -25,13 +25,13 @@ class FornecedorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nome_rasao_social' => ['required', 'string', 'max:100'],
+            'nome_razao_social' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'max:150', 'email', Rule::unique('fornecedores')->ignore($this->uuid, 'uuid')],
             'cpf' => ['nullable', 'string', 'max:11', Rule::unique('fornecedores')->ignore($this->uuid, 'uuid')],
             'cnpj' => ['nullable', 'string', 'max:14', Rule::unique('fornecedores')->ignore($this->uuid, 'uuid')],
             'inscricao_estadual' => ['nullable', 'string', 'max:30'],
             'inscricao_municipal' => ['nullable', 'string', 'max:30'],
-            'celular' => ['nullable', 'string', 'max:30'],
+            'celular' => ['required', 'string', 'max:30'],
             'cep' => ['nullable', 'string', 'max:8'],
             'endereco' => ['nullable', 'string', 'max:150'],
             'numero' => ['nullable', 'string', 'max:20'],
@@ -54,9 +54,9 @@ class FornecedorRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'nome_rasao_social.required' => 'O campo nome/razão social é obrigatório',
-            'nome_rasao_social.string' => 'O campo nome/razão social deve ser uma string',
-            'nome_rasao_social.max' => 'O campo nome/razão social deve ter no máximo 100 caracteres',
+            'nome_razao_social.required' => 'O campo nome/razão social é obrigatório',
+            'nome_razao_social.string' => 'O campo nome/razão social deve ser uma string',
+            'nome_razao_social.max' => 'O campo nome/razão social deve ter no máximo 100 caracteres',
             'email.required' => 'O campo e-mail é obrigatório',
             'email.string' => 'O campo e-mail deve ser uma string',
             'email.max' => 'O campo e-mail deve ter no máximo 150 caracteres',
@@ -66,6 +66,7 @@ class FornecedorRequest extends FormRequest
             'cnpj.unique' => 'O CNPJ já está cadastrado',
             'inscricao_estadual.max' => 'O campo inscrição estadual deve ter no máximo 30 caracteres',
             'inscricao_municipal.max' => 'O campo inscrição municipal deve ter no máximo 30 caracteres',
+            'celular.required' => 'O campo celular é obrigatório',
             'celular.max' => 'O campo celular deve ter no máximo 30 caracteres',
             'cep.max' => 'O campo CEP deve ter no máximo 8 caracteres',
             'endereco.max' => 'O campo endereço deve ter no máximo 150 caracteres',

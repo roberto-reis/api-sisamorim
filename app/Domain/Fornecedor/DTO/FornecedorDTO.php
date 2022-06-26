@@ -2,7 +2,7 @@
 
 namespace App\Domain\Fornecedor\DTO;
 
-use App\Http\Requests\FornecedorRequest;
+use App\Domain\Fornecedor\Requests\FornecedorRequest;
 
 class FornecedorDTO
 {
@@ -10,45 +10,45 @@ class FornecedorDTO
     public $nomeRazaoSocial;
     /** @var string */
     public $email;
-    /** @var string */
+    /** @var string|null */
     public $cpf;
-    /** @var string */
+    /** @var string|null */
     public $cnpj;
-    /** @var string */
+    /** @var string|null */
     public $inscricaoEstadual;
-    /** @var string */
+    /** @var string|null */
     public $inscricaoMunicipal;
     /** @var string */
     public $celular;
-    /** @var string */
+    /** @var string|null */
     public $cep;
-    /** @var string */
+    /** @var string|null */
     public $endereco;
-    /** @var string */
+    /** @var string|null */
     public $numero;
-    /** @var string */
+    /** @var string|null */
     public $complemento;
-    /** @var string */
+    /** @var string|null */
     public $bairro;
-    /** @var string */
+    /** @var string|null */
     public $cidade;
-    /** @var string */
+    /** @var string|null */
     public $uf;
-    /** @var string */
+    /** @var string|null */
     public $observacao;
     /** @var string */
     public $tipoFornecedor;
-    /** @var string */
+    /** @var string|null */
     public $banco;
-    /** @var int */
+    /** @var int|null */
     public $agencia;
-    /** @var string */
+    /** @var string|null */
     public $digitoAgencia;
     /** @var int */
     public $conta;
-    /** @var string */
+    /** @var string|null */
     public $digitoConta;
-    /** @var string */
+    /** @var string|null */
     public $tipoConta;
     /** @var bool */
     public $status;
@@ -56,26 +56,26 @@ class FornecedorDTO
     public function __construct(
         string $nomeRazaoSocial,
         string $email,
-        string $cpf,
-        string $cnpj,
-        string $inscricaoEstadual,
-        string $inscricaoMunicipal,
+        ?string $cpf,
+        ?string $cnpj,
+        ?string $inscricaoEstadual,
+        ?string $inscricaoMunicipal,
         string $celular,
-        string $cep,
-        string $endereco,
-        string $numero,
-        string $complemento,
-        string $bairro,
-        string $cidade,
-        string $uf,
-        string $observacao,
-        string $tipoFornecedor,
-        string $banco,
-        int $agencia,
-        string $digitoAgencia,
-        int $conta,
-        string $digitoConta,
-        string $tipoConta,
+        ?string $cep,
+        ?string $endereco,
+        ?string $numero,
+        ?string $complemento,
+        ?string $bairro,
+        ?string $cidade,
+        ?string $uf,
+        ?string $observacao,
+        ?string $tipoFornecedor,
+        ?string $banco,
+        ?int $agencia,
+        ?string $digitoAgencia,
+        ?int $conta,
+        ?string $digitoConta,
+        ?string $tipoConta,
         bool $status
     ) {
         $this->nomeRazaoSocial = $nomeRazaoSocial;

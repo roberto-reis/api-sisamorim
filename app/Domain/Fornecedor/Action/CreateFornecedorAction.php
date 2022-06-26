@@ -34,5 +34,7 @@ class CreateFornecedorAction
         $fornecedor->tipo_conta = $dto->tipoConta;
         $fornecedor->status = $dto->status;
         $fornecedor->save();
+
+        return $fornecedor;
     }
 }
