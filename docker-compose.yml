@@ -14,7 +14,7 @@ services:
         depends_on:
             - redis
         networks:
-            - rede_web_docker
+            - rede_sisamorim
 # nginx
     nginx:
         container_name: nginx-sisamorim
@@ -26,30 +26,30 @@ services:
             - ./:/var/www/html
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks:
-            - rede_web_docker
+            - rede_sisamorim
 # db mysql
-    # mysql:
-    #     image: mysql:5.7
-    #     container_name: mysql-sisamorim
-    #     restart: unless-stopped
-    #     environment:
-    #        - MYSQL_ROOT_PASSWORD=root
-    #        - MYSQL_DATABASE=sisamorim
-    #     volumes:
-    #         - ./.docker/mysql/dbdata:/var/lib/mysql
-    #     ports:
-    #         - 3307:3306
-    #     networks:
-    #         - rede_web_docker
+    mysql:
+        image: mysql:5.7
+        container_name: mysql-sisamorim
+        restart: unless-stopped
+        environment:
+           - MYSQL_ROOT_PASSWORD=root
+           - MYSQL_DATABASE=sisamorim
+        volumes:
+            - ./.docker/mysql/dbdata:/var/lib/mysql
+        ports:
+            - 3307:3306
+        networks:
+            - rede_sisamorim
 
 # redis
     redis:
         container_name: redis-sisamorim
         image: redis:latest
         networks:
-            - rede_web_docker
+            - rede_sisamorim
 
 networks:
-    rede_web_docker:
-        name: rede_web_docker
+    rede_sisamorim:
+        name: rede_sisamorim
         driver: bridge
