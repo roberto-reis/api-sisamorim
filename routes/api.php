@@ -37,6 +37,9 @@ Route::prefix('v1')->group(function(){
     // Rotas Domain Produto
     require base_path('/app/Domain/Produto/routes/index.php');
 
+    // Rotas Domain Fornecedor
+    require base_path('/app/Domain/Fornecedor/routes/index.php');
+
 });
 
 
