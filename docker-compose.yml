@@ -3,19 +3,19 @@ version: "3.7"
 services:
     app:
         container_name: api-sisamorim
-        image: laravel-app
         build:
             context: ./
-            dockerfile: Dockerfile
+            dockerfile: docker/app/Dockerfile
         restart: unless-stopped
-        working_dir: /var/www/html/
+        working_dir: /var/www/
         volumes:
-            - ./:/var/www/html
+            - ./:/var/www
         depends_on:
-            - redis
+            - mysql
         networks:
-            - rede_sisamorim
-# nginx
+            - rede-sisamorim
+        entrypoint: ["sh", "docker/app/docker-entrypoint.sh"]
+
     nginx:
         container_name: nginx-sisamorim
         image: nginx:alpine
@@ -23,11 +23,11 @@ services:
         ports:
             - 9001:80
         volumes:
-            - ./:/var/www/html
+            - ./:/var/www
             - ./docker/nginx/:/etc/nginx/conf.d/
         networks:
-            - rede_sisamorim
-# db mysql
+            - rede-sisamorim
+
     mysql:
         image: mysql:5.7
         container_name: mysql-sisamorim
@@ -40,16 +40,9 @@ services:
         ports:
             - 3307:3306
         networks:
-            - rede_sisamorim
-
-# redis
-    redis:
-        container_name: redis-sisamorim
-        image: redis:latest
-        networks:
-            - rede_sisamorim
+            - rede-sisamorim
 
 networks:
-    rede_sisamorim:
-        name: rede_sisamorim
+    rede-sisamorim:
+        name: rede-sisamorim
         driver: bridge
