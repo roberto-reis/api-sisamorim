@@ -16,8 +16,13 @@ class Fornecedor extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d h:i:s',
+        'updated_at' => 'datetime:Y-m-d h:i:s'
+    ];
+
     protected $fillable = [
-        'nome_rasao_social',
+        'nome_razao_social',
         'email',
         'cpf',
         'cnpj',

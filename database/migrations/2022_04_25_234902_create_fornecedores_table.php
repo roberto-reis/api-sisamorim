@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('fornecedores', function (Blueprint $table) {
             $table->uuid('uuid')->primary();
-            $table->string('nome_rasao_social', 150)->index();
+            $table->string('nome_razao_social', 150)->index();
             $table->string('email', 150)->unique();
             $table->char('cpf', 11)->unique()->nullable();
             $table->char('cnpj', 14)->unique()->nullable();

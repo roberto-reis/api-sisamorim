@@ -4,7 +4,7 @@ echo "########## COMPOSER INSTALL ##########"
 composer install
 
 echo "########## SETTING ENV ##########"
-cp .env.example .env
+# cp .env.example .env
 
 echo "########## KEY GENERATE ##########"
 php artisan key:generate

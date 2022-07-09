@@ -2,54 +2,54 @@
 
 namespace App\Domain\Fornecedor\DTO;
 
-use App\Domain\Fornecedor\Requests\FornecedorRequest;
+use App\Shared\DTO\DTOAbstract;
 
-class FornecedorDTO
+class FornecedorDTO extends DTOAbstract
 {
     /** @var string */
-    public $nomeRazaoSocial;
+    public $nome_razao_social;
     /** @var string */
     public $email;
-    /** @var string|null */
+    /** @var ?string */
     public $cpf;
-    /** @var string|null */
+    /** @var ?string */
     public $cnpj;
-    /** @var string|null */
-    public $inscricaoEstadual;
-    /** @var string|null */
-    public $inscricaoMunicipal;
+    /** @var ?string */
+    public $inscricao_estadual;
+    /** @var ?string */
+    public $inscricao_municipal;
     /** @var string */
     public $celular;
-    /** @var string|null */
+    /** @var ?string */
     public $cep;
-    /** @var string|null */
+    /** @var ?string */
     public $endereco;
-    /** @var string|null */
+    /** @var ?string */
     public $numero;
-    /** @var string|null */
+    /** @var ?string */
     public $complemento;
-    /** @var string|null */
+    /** @var ?string */
     public $bairro;
-    /** @var string|null */
+    /** @var ?string */
     public $cidade;
-    /** @var string|null */
+    /** @var ?string */
     public $uf;
-    /** @var string|null */
+    /** @var ?string */
     public $observacao;
     /** @var string */
-    public $tipoFornecedor;
-    /** @var string|null */
+    public $tipo_fornecedor;
+    /** @var ?string */
     public $banco;
     /** @var int|null */
     public $agencia;
-    /** @var string|null */
-    public $digitoAgencia;
+    /** @var ?string*/
+    public $digito_agencia;
     /** @var int */
     public $conta;
-    /** @var string|null */
-    public $digitoConta;
-    /** @var string|null */
-    public $tipoConta;
+    /** @var ?string */
+    public $digito_conta;
+    /** @var ?string */
+    public $tipo_conta;
     /** @var bool */
     public $status;
 
@@ -78,12 +78,12 @@ class FornecedorDTO
         ?string $tipoConta,
         bool $status
     ) {
-        $this->nomeRazaoSocial = $nomeRazaoSocial;
+        $this->nome_razao_social = $nomeRazaoSocial;
         $this->email = $email;
         $this->cpf = $cpf;
         $this->cnpj = $cnpj;
-        $this->inscricaoEstadual = $inscricaoEstadual;
-        $this->inscricaoMunicipal = $inscricaoMunicipal;
+        $this->inscricao_estadual = $inscricaoEstadual;
+        $this->inscricao_municipal = $inscricaoMunicipal;
         $this->celular = $celular;
         $this->cep = $cep;
         $this->endereco = $endereco;
@@ -93,43 +93,42 @@ class FornecedorDTO
         $this->cidade = $cidade;
         $this->uf = $uf;
         $this->observacao = $observacao;
-        $this->tipoFornecedor = $tipoFornecedor;
+        $this->tipo_fornecedor = $tipoFornecedor;
         $this->banco = $banco;
         $this->agencia = $agencia;
-        $this->digitoAgencia = $digitoAgencia;
+        $this->digito_agencia = $digitoAgencia;
         $this->conta = $conta;
-        $this->digitoConta = $digitoConta;
-        $this->tipoConta = $tipoConta;
+        $this->digito_conta = $digitoConta;
+        $this->tipo_conta = $tipoConta;
         $this->status = $status;
     }
 
-    public static function fromRequest(FornecedorRequest $request): FornecedorDTO
+    public static function register(array $data): FornecedorDTO
     {
         return new self(
-            $request->nome_razao_social,
-            $request->email,
-            $request->cpf,
-            $request->cnpj,
-            $request->inscricao_estadual,
-            $request->inscricao_municipal,
-            $request->celular,
-            $request->cep,
-            $request->endereco,
-            $request->numero,
-            $request->complemento,
-            $request->bairro,
-            $request->cidade,
-            $request->uf,
-            $request->observacao,
-            $request->tipo_fornecedor,
-            $request->banco,
-            $request->agencia,
-            $request->digito_agencia,
-            $request->conta,
-            $request->digito_conta,
-            $request->tipo_conta,
-            $request->status
+            $data['nome_razao_social'],
+            $data['email'],
+            $data['cpf'],
+            $data['cnpj'],
+            $data['inscricao_estadual'],
+            $data['inscricao_municipal'],
+            $data['celular'],
+            $data['cep'],
+            $data['endereco'],
+            $data['numero'],
+            $data['complemento'],
+            $data['bairro'],
+            $data['cidade'],
+            $data['uf'],
+            $data['observacao'],
+            $data['tipo_fornecedor'],
+            $data['banco'],
+            $data['agencia'],
+            $data['digito_agencia'],
+            $data['conta'],
+            $data['digito_conta'],
+            $data['tipo_conta'],
+            $data['status']
         );
     }
-
 }
