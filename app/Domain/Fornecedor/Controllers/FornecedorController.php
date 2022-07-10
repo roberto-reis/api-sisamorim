@@ -2,22 +2,37 @@
 
 namespace App\Domain\Fornecedor\Controllers;
 
+use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use App\Exceptions\FornecedorException;
 use App\Domain\Fornecedor\DTO\FornecedorDTO;
 use App\Domain\Fornecedor\Requests\FornecedorRequest;
 use App\Domain\Fornecedor\Action\CreateFornecedorAction;
 use App\Domain\Fornecedor\Action\DeleteFornecedorAction;
+use App\Domain\Fornecedor\Action\ListFornecedorAction;
 use App\Domain\Fornecedor\Action\UpdateFornecedorAction;
-use App\Exceptions\FornecedorException;
-use Exception;
-use Illuminate\Validation\ValidationException;
 
 class FornecedorController extends Controller
 {
-    public function index()
+    public function index(Request $request, ListFornecedorAction $listAction)
     {
-        return response()->json(['message' => 'FornecedorController']);
+        $dataSearch = $request->only(['search', 'per_page', 'with_paginate']);
+        try {
+
+            $fornecedores = $listAction($dataSearch);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Dados retornados com sucesso.',
+                'data' => $fornecedores,
+            ], 200);
+
+        } catch (Exception $e) {
+            Log::error($e->getMessage());
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     public function store(FornecedorRequest $request, CreateFornecedorAction $createFornecedor)
