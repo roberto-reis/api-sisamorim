@@ -27,13 +27,13 @@ class RegisterDTO
         $this->password = $password;
     }
 
-    public static function fromRequest(RegisterRequest $request): RegisterDTO
+    public static function register(array $data): RegisterDTO
     {
         return new self(
-            $request->input('first_name'),
-            $request->input('last_name'),
-            $request->input('email'),
-            $request->input('password')
+            $data['first_name'],
+            $data['last_name'],
+            $data['email'],
+            $data['password']
         );
     }
 

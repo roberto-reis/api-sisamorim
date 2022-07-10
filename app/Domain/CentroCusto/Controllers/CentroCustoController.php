@@ -40,7 +40,7 @@ class CentroCustoController extends Controller
     public function store(CentroCustoRequest $request, CreateCentroCustoAction $createCentroCusto)
     {
         try {
-            $centroCustoValidado = CentroCustoDTO::fromRequest($request);
+            $centroCustoValidado = CentroCustoDTO::register($request->validated());
             $centroCusto = $createCentroCusto($centroCustoValidado);
         } catch (\Exception $e) {
             Log::error('error ao savar Centro de Custo: ', [$e->getMessage()]);
@@ -56,7 +56,7 @@ class CentroCustoController extends Controller
     public function update($uuid, CentroCustoRequest $request, UpdateCentroCustoAction $updateCentroCusto)
     {
         try {
-            $centroCustoValidado = CentroCustoDTO::fromRequest($request);
+            $centroCustoValidado = CentroCustoDTO::register($request->validated());
             $centroCusto = $updateCentroCusto($centroCustoValidado, $uuid);
 
             return response()->json([

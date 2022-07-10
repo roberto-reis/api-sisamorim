@@ -13,4 +13,6 @@ yarn-error.log
 /.idea
 /.vscode
 /.docker
+/.composer
 compose.lock
+.bash_history

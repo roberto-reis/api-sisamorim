@@ -18,21 +18,13 @@ class LoginDTO
         $this->password = $password;
     }
 
-    public static function fromRequest(LoginRequest $request): LoginDTO
+    public static function register(array $data): LoginDTO
     {
         return new self(
-            $request->email, 
-            $request->password
+            $data['email'],
+            $data['password']
         );
     }
-
-    // public function toArray(): array
-    // {
-    //     return [
-    //         'email' => $this->email,
-    //         'password' => $this->password,
-    //     ];
-    // }
 
 }
 
