@@ -2,7 +2,9 @@
 
 namespace App\Shared\DTO;
 
-abstract class DTOAbstract
+use App\Shared\Interfaces\IDTOAbstract;
+
+abstract class DTOAbstract implements IDTOAbstract
 {
     /**
      * @param array $except

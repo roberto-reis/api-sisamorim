@@ -3,8 +3,9 @@
 namespace App\Domain\CentroCusto\DTO;
 
 use App\Domain\CentroCusto\Requests\CentroCustoRequest;
+use App\Shared\DTO\DTOAbstract;
 
-class CentroCustoDTO
+class CentroCustoDTO extends DTOAbstract
 {
     /** @var string */
     public $nome;
@@ -14,10 +15,10 @@ class CentroCustoDTO
         $this->nome = $nome;
     }
 
-    public static function fromRequest(CentroCustoRequest $request): CentroCustoDTO
+    public static function register(array $data): CentroCustoDTO
     {
         return new self(
-            $request->nome
+            $data['nome']
         );
     }
 

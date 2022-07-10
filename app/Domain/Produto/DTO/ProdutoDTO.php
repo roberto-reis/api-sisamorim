@@ -3,8 +3,9 @@
 namespace App\Domain\Produto\DTO;
 
 use App\Domain\Produto\Requests\ProdutoRequest;
+use App\Shared\DTO\DTOAbstract;
 
-class ProdutoDTO
+class ProdutoDTO extends DTOAbstract
 {
     /** @var string */
     public $centro_custo_uuid;
@@ -47,18 +48,18 @@ class ProdutoDTO
         $this->estoque = $estoque;
     }
 
-    public static function fromRequest(ProdutoRequest $request): ProdutoDTO
+    public static function register(array $data): ProdutoDTO
     {
         return new self(
-            $request->centro_custo_uuid,
-            $request->codigo,
-            $request->nome,
-            $request->descricao,
-            $request->unidade_medida,
-            $request->cor,
-            $request->preco_custo,
-            $request->pecentual_lucro,
-            $request->estoque
+            $data['centro_custo_uuid'],
+            $data['codigo'],
+            $data['nome'],
+            $data['descricao'],
+            $data['unidade_medida'],
+            $data['cor'],
+            $data['preco_custo'],
+            $data['pecentual_lucro'],
+            $data['estoque']
         );
     }
 }

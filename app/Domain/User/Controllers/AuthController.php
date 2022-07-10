@@ -24,7 +24,7 @@ class AuthController extends Controller
     {
         try {
 
-            $credentialsValidated = LoginDTO::fromRequest($request);
+            $credentialsValidated = LoginDTO::register($request->validated());
             $loginToken = $actionLogin($credentialsValidated);
             $userLogado = auth()->user();
 
@@ -52,7 +52,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $registerRequest, RegisterAction $registerAction): JsonResponse
     {
         try {
-            $dataValidated = RegisterDTO::fromRequest($registerRequest);
+            $dataValidated = RegisterDTO::register($registerRequest->validated());
             $userToken = $registerAction($dataValidated);
             $userLogado = auth()->user();
 

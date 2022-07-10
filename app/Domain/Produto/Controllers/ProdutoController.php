@@ -34,7 +34,7 @@ class ProdutoController extends Controller
     public function store(ProdutoRequest $request, CreateProdutoAction $createAction)
     {
         try {
-            $produtoValidado = ProdutoDTO::fromRequest($request);
+            $produtoValidado = ProdutoDTO::register($request->validated());
             $produto = $createAction($produtoValidado);
 
             return response()->json([
@@ -51,7 +51,7 @@ class ProdutoController extends Controller
     public function update($uuid, ProdutoRequest $request, UpdateProdutoAction $updateAction)
     {
         try {
-            $produtoCustoValidado = ProdutoDTO::fromRequest($request);
+            $produtoCustoValidado = ProdutoDTO::register($request->validated());
             $produto = $updateAction($produtoCustoValidado, $uuid);
 
             return response()->json([
