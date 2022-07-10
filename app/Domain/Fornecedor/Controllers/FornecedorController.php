@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Domain\Fornecedor\DTO\FornecedorDTO;
 use App\Domain\Fornecedor\Requests\FornecedorRequest;
 use App\Domain\Fornecedor\Action\CreateFornecedorAction;
+use App\Domain\Fornecedor\Action\DeleteFornecedorAction;
 use App\Domain\Fornecedor\Action\UpdateFornecedorAction;
 use App\Exceptions\FornecedorException;
 use Exception;
@@ -57,8 +58,24 @@ class FornecedorController extends Controller
         }
     }
 
-    public function delete()
+    public function delete(string $uuid, DeleteFornecedorAction $deleteFonecedor)
     {
+        try {
 
+            $fornecedorDeleted = $deleteFonecedor($uuid);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Fornecedor deletado com sucesso',
+            ], 200);
+
+        } catch (FornecedorException $exception) {
+            return response()->json([
+                'success' => false,
+                'message' => $exception->getMessage()
+            ], $exception->getCode());
+        } catch (\Exception $exception) {
+            Log::error('Erro ao deletar fornecedor: ', [$exception->getMessage()]);
+        }
     }
 }

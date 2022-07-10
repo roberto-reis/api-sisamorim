@@ -8,6 +8,12 @@ use App\Domain\Fornecedor\Models\Fornecedor;
 
 class UpdateFornecedorAction
 {
+    /**
+     * @param string $uuid
+     * @param FornecedorDTO $dto
+     * @return Fornecedor
+     * @throws FornecedorException
+     */
     public function __invoke(string $uuid, FornecedorDTO $dto): Fornecedor
     {
         $fornecedor = Fornecedor::find($uuid);

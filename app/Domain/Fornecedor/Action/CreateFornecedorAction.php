@@ -4,11 +4,14 @@ namespace App\Domain\Fornecedor\Action;
 
 use App\Domain\Fornecedor\DTO\FornecedorDTO;
 use App\Domain\Fornecedor\Models\Fornecedor;
-use Illuminate\Database\Eloquent\Collection;
 
 class CreateFornecedorAction
 {
-    public function __invoke(FornecedorDTO $dto): Collection
+    /**
+     * @param FornecedorDTO $dto
+     * @return Fornecedor
+     */
+    public function __invoke(FornecedorDTO $dto): Fornecedor
     {
         $fornecedor = Fornecedor::create($dto->toArray());
 
