@@ -43,6 +43,32 @@ class CentroCustoTest extends TestCase
                 ],
             ],
         ])->assertStatus(200);
-
     }
+
+    public function test_deve_cadastrar_centro_de_custo()
+    {
+        // Arrange
+        $user = User::factory()->create();
+        $centroCusto = CentroCusto::factory()->make();
+
+        // Action
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => '12345678',
+        ]);
+        $token = $response->json('token')['access_token'];
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])
+                         ->post(route('centro-custo.store'), [
+                            'nome' => $centroCusto->nome,
+                         ]);
+
+        // Assert
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('centro_custos', [
+            'nome' => $centroCusto->nome,
+        ]);
+    }
+
+
 }
