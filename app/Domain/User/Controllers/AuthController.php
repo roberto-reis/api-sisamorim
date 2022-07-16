@@ -20,16 +20,15 @@ class AuthController extends Controller
      * @param LoginAction $loginAction
      * @return JsonResponse
      */
-    public function login(LoginRequest $request, LoginAction $actionLogin): JsonResponse
+    public function login(LoginRequest $request, LoginAction $actionLogin, LoginDTO $dto): JsonResponse
     {
         try {
 
-            $credentialsValidated = LoginDTO::register($request->validated());
+            $credentialsValidated = $dto->fromArray($request->validated());
             $loginToken = $actionLogin($credentialsValidated);
             $userLogado = auth()->user();
 
             return response()->json([
-                'success' => true,
                 'message' => 'login feito com sucesso',
                 'token' => $loginToken,
                 'user' => $userLogado
@@ -49,15 +48,14 @@ class AuthController extends Controller
      * @param RegisterAction $actionRegister
      * @return JsonResponse
      */
-    public function register(RegisterRequest $registerRequest, RegisterAction $registerAction): JsonResponse
+    public function register(RegisterRequest $registerRequest, RegisterAction $registerAction, RegisterDTO $dto): JsonResponse
     {
         try {
-            $dataValidated = RegisterDTO::register($registerRequest->validated());
+            $dataValidated = $dto->fromArray($registerRequest->validated());
             $userToken = $registerAction($dataValidated);
             $userLogado = auth()->user();
 
             return response()->json([
-                'success' => true,
                 'message' => 'registro feito com sucesso',
                 'token' => $userToken,
                 'user' => $userLogado

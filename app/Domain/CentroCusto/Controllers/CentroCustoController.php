@@ -27,7 +27,6 @@ class CentroCustoController extends Controller
             $centroCustos = $repository->getCentroCusto($request);
 
             return response()->json([
-                'success' => true,
                 'message' => 'Dados retornados com sucesso.',
                 'data' => $centroCustos,
             ], 200);
@@ -37,37 +36,39 @@ class CentroCustoController extends Controller
         }
     }
 
-    public function store(CentroCustoRequest $request, CreateCentroCustoAction $createCentroCusto)
+    public function store(CentroCustoRequest $request, CreateCentroCustoAction $createCentroCusto, CentroCustoDTO $dto)
     {
         try {
-            $centroCustoValidado = CentroCustoDTO::register($request->validated());
+            $centroCustoValidado = $dto->fromArray($request->validated());
             $centroCusto = $createCentroCusto($centroCustoValidado);
-        } catch (\Exception $e) {
-            Log::error('error ao savar Centro de Custo: ', [$e->getMessage()]);
+
+            return response()->json([
+                'message' => 'Centro de Custo criado com sucesso',
+                'data' => $centroCusto
+            ], 201);
+        } catch (\Exception $exception) {
+            Log::error('error ao savar Centro de Custo: ', [$exception->getMessage()]);
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], $exception->getCode());
         }
 
-        return response()->json([
-            'success' => true,
-            'message' => 'Centro de Custo criado com sucesso',
-            'data' => $centroCusto
-        ], 201);
+
     }
 
-    public function update($uuid, CentroCustoRequest $request, UpdateCentroCustoAction $updateCentroCusto)
+    public function update($uuid, CentroCustoRequest $request, UpdateCentroCustoAction $updateCentroCusto, CentroCustoDTO $dto)
     {
         try {
-            $centroCustoValidado = CentroCustoDTO::register($request->validated());
+            $centroCustoValidado = $dto->fromArray($request->validated());
             $centroCusto = $updateCentroCusto($centroCustoValidado, $uuid);
 
             return response()->json([
-                'success' => true,
                 'message' => 'Centro de Custo atualizado com sucesso',
                 'data' => $centroCusto
             ], 200);
 
         } catch (CentroCustoException $exception) {
             return response()->json([
-                'success' => false,
                 'message' => $exception->getMessage(),
             ], $exception->getCode());
 
@@ -82,14 +83,12 @@ class CentroCustoController extends Controller
             $centroCusto = $deleteCentroCusto($uuid);
 
             return response()->json([
-                'success' => true,
                 'message' => 'Centro de Custo deletado com sucesso',
                 'data' => $centroCusto
             ], 200);
 
         } catch (CentroCustoException $exception) {
             return response()->json([
-                'success' => false,
                 'message' => $exception->getMessage(),
             ], $exception->getCode());
 

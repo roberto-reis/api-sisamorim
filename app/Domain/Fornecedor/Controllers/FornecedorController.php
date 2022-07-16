@@ -18,46 +18,48 @@ class FornecedorController extends Controller
 {
     public function index(Request $request, ListFornecedorAction $listAction)
     {
-        $dataSearch = $request->only(['search', 'per_page', 'with_paginate']);
         try {
-
-            $fornecedores = $listAction($dataSearch);
+            $dataSearch = $request->only(['search', 'per_page', 'with_paginate']);
+            $fornecedores = $listAction->execute($dataSearch);
 
             return response()->json([
-                'success' => true,
                 'message' => 'Dados retornados com sucesso.',
                 'data' => $fornecedores,
             ], 200);
 
         } catch (Exception $e) {
             Log::error($e->getMessage());
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json([
+                'error' => $e->getMessage()
+            ], $e->getCode());
         }
     }
 
-    public function store(FornecedorRequest $request, CreateFornecedorAction $createFornecedor)
+    public function store(FornecedorRequest $request, CreateFornecedorAction $createFornecedor, FornecedorDTO $dto)
     {
         try {
-            $fornecedorValidado = FornecedorDTO::register($request->validated());
+            $fornecedorValidado = $dto->fromArray($request->validated());
             $fornecedor = $createFornecedor($fornecedorValidado);
+
             return response()->json([
-                'success' => true,
                 'message' => 'Fornecedor criado com sucesso',
                 'data' => $fornecedor
             ], 201);
         } catch (\Exception $exception) {
             Log::error('Erro ao cadastrar fornecedor: ', [$exception->getMessage()]);
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], $exception->getCode());
         }
     }
 
-    public function update(string $uuid, FornecedorRequest $request, UpdateFornecedorAction $updateFonecedor)
+    public function update(string $uuid, FornecedorRequest $request, UpdateFornecedorAction $updateFonecedor, FornecedorDTO $dto)
     {
         try {
-            $dadosValidados = FornecedorDTO::register($request->validated());
+            $dadosValidados = $dto->fromArray($request->validated());
             $fornecedor = $updateFonecedor($uuid, $dadosValidados);
 
             return response()->json([
-                'success' => true,
                 'message' => 'Fornecedor atualizado com sucesso',
                 'data' => $fornecedor
             ], 200);
@@ -65,7 +67,6 @@ class FornecedorController extends Controller
 
         } catch (FornecedorException $exception) {
             return response()->json([
-                'success' => false,
                 'message' => $exception->getMessage()
             ], $exception->getCode());
         } catch (\Exception $exception) {
@@ -76,17 +77,14 @@ class FornecedorController extends Controller
     public function delete(string $uuid, DeleteFornecedorAction $deleteFonecedor)
     {
         try {
-
             $fornecedorDeleted = $deleteFonecedor($uuid);
 
             return response()->json([
-                'success' => true,
                 'message' => 'Fornecedor deletado com sucesso',
             ], 200);
 
         } catch (FornecedorException $exception) {
             return response()->json([
-                'success' => false,
                 'message' => $exception->getMessage()
             ], $exception->getCode());
         } catch (\Exception $exception) {

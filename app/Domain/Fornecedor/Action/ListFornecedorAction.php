@@ -8,7 +8,7 @@ class ListFornecedorAction
 {
     protected $perPage = 15;
 
-    public function __invoke(array $dataRequest)
+    public function execute(array $dataRequest)
     {
         $fornecedores = Fornecedor::query();
 

@@ -53,7 +53,7 @@ class FornecedorDTO extends DTOAbstract
     /** @var bool */
     public $status;
 
-    public function __construct(
+    public function register(
         string $nomeRazaoSocial,
         string $email,
         ?string $cpf,
@@ -77,7 +77,7 @@ class FornecedorDTO extends DTOAbstract
         ?string $digitoConta,
         ?string $tipoConta,
         bool $status
-    ) {
+    ): self {
         $this->nome_razao_social = $nomeRazaoSocial;
         $this->email = $email;
         $this->cpf = $cpf;
@@ -101,34 +101,8 @@ class FornecedorDTO extends DTOAbstract
         $this->digito_conta = $digitoConta;
         $this->tipo_conta = $tipoConta;
         $this->status = $status;
+
+        return $this;
     }
 
-    public static function register(array $data): FornecedorDTO
-    {
-        return new self(
-            $data['nome_razao_social'],
-            $data['email'],
-            $data['cpf'],
-            $data['cnpj'],
-            $data['inscricao_estadual'],
-            $data['inscricao_municipal'],
-            $data['celular'],
-            $data['cep'],
-            $data['endereco'],
-            $data['numero'],
-            $data['complemento'],
-            $data['bairro'],
-            $data['cidade'],
-            $data['uf'],
-            $data['observacao'],
-            $data['tipo_fornecedor'],
-            $data['banco'],
-            $data['agencia'],
-            $data['digito_agencia'],
-            $data['conta'],
-            $data['digito_conta'],
-            $data['tipo_conta'],
-            $data['status']
-        );
-    }
 }

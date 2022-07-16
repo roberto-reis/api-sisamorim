@@ -21,52 +21,57 @@ class ProdutoController extends Controller
             $produto = $repository->getProdutos($request);
 
             return response()->json([
-                'success' => true,
                 'message' => 'Dados retornados com sucesso.',
                 'data' => $produto,
             ], 200);
 
-        } catch (\Exception $e) {
-            Log::error('Ocorreu um erro ao buscar produto: ', [$e->getMessage()]);
+        } catch (\Exception $exception) {
+            Log::error('Ocorreu um erro ao buscar produto: ', [$exception->getMessage()]);
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], $exception->getCode());
         }
     }
 
-    public function store(ProdutoRequest $request, CreateProdutoAction $createAction)
+    public function store(ProdutoRequest $request, CreateProdutoAction $createAction, ProdutoDTO $dto)
     {
         try {
-            $produtoValidado = ProdutoDTO::register($request->validated());
+            $produtoValidado = $dto->fromArray($request->validated());
             $produto = $createAction($produtoValidado);
 
             return response()->json([
-                'success' => true,
                 'message' => 'Produto criado com sucesso',
                 'data' => $produto
             ], 201);
 
         } catch (\Exception $exception) {
             Log::error('Erro ao cadastrar produto: ', [$exception->getMessage()]);
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], $exception->getCode());
         }
     }
 
-    public function update($uuid, ProdutoRequest $request, UpdateProdutoAction $updateAction)
+    public function update($uuid, ProdutoRequest $request, UpdateProdutoAction $updateAction, ProdutoDTO $dto)
     {
         try {
-            $produtoCustoValidado = ProdutoDTO::register($request->validated());
+            $produtoCustoValidado = $dto->fromArray($request->validated());
             $produto = $updateAction($produtoCustoValidado, $uuid);
 
             return response()->json([
-                'success' => true,
                 'message' => 'Produto atualizado com sucesso',
                 'data' => $produto
             ], 200);
 
         } catch (ProdutoException $exception) {
             return response()->json([
-                'success' => false,
                 'message' => $exception->getMessage(),
             ], $exception->getCode());
         } catch (\Exception $exception) {
             Log::error('error ao atualizar Produto: ', [$exception->getMessage()]);
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], $exception->getCode());
         }
     }
 
@@ -76,14 +81,12 @@ class ProdutoController extends Controller
             $produto = $actionProduto($uuid);
 
             return response()->json([
-                'success' => true,
                 'message' => 'Produto deletado com sucesso',
                 'data' => $produto
             ], 200);
 
         } catch (ProdutoException $exception) {
             return response()->json([
-                'success' => false,
                 'message' => $exception->getMessage(),
             ], $exception->getCode());
         } catch (\Exception $exception) {
