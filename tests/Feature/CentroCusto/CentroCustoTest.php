@@ -70,5 +70,29 @@ class CentroCustoTest extends TestCase
         ]);
     }
 
+    public function test_deve_atualizar_centro_de_custo()
+    {
+        // Arrange
+        $user = User::factory()->create();
+        $centroCusto = CentroCusto::factory()->create();
+
+        // Action
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => '12345678',
+        ]);
+        $token = $response->json('token')['access_token'];
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])
+                         ->put(route('centro-custo.update', $centroCusto->uuid), [
+                            'nome' => 'Novo nome',
+                         ]);
+
+        // Assert
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('centro_custos', [
+            'nome' => 'Novo nome',
+        ]);
+    }
 
 }
