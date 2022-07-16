@@ -4,12 +4,12 @@ namespace Tests\Feature\CentroCusto;
 
 use Tests\TestCase;
 use App\Domain\User\Models\User;
-use Illuminate\Foundation\Testing\WithFaker;
 use App\Domain\CentroCusto\Models\CentroCusto;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CentroCustoTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *

@@ -32,7 +32,7 @@ class LoginTest extends TestCase
         $this->assertAuthenticatedAs($user);
     }
 
-    public function test_deve_falhar_ao_fazer_login()
+    public function test_deve_falhar_ao_fazer_login_user_nao_cadastrado()
     {
         // Arrange
         $password = '12345678';
