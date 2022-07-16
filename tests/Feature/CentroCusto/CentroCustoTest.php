@@ -10,14 +10,20 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class CentroCustoTest extends TestCase
 {
     use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+
+    public function test_deve_estar_autenticado_para_listar_centro_de_custo()
+    {   // Arrange
+
+        // Action
+        $response = $this->get(route('centro-custo.index'));
+
+        // Assert
+        $response->assertJson(['error' => 'Authorization Token not found'])
+                ->assertStatus(401);
+    }
+
     public function test_deve_listar_centro_de_custo()
     {
-        $this->withExceptionHandling();
         // Arrange
         $user = User::factory()->create();
         $centroCusto = CentroCusto::factory()->create();
