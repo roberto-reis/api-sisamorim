@@ -95,4 +95,27 @@ class CentroCustoTest extends TestCase
         ]);
     }
 
+    public function test_deve_deletar_centro_de_custo()
+    {
+        // Arrange
+        $user = User::factory()->create();
+        $centroCusto = CentroCusto::factory()->create();
+
+        // Action
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => '12345678',
+        ]);
+        $token = $response->json('token')['access_token'];
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])
+                         ->delete(route('centro-custo.delete', $centroCusto->uuid));
+
+        // Assert
+        $response->assertStatus(200);
+        // Ausente no Banco de dados
+        $this->assertDatabaseMissing('centro_custos', [
+            'uuid' => $centroCusto->uuid,
+        ]);
+    }
 }
