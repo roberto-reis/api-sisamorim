@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Domain\CentroCusto\Models\CentroCusto;
 use Illuminate\Database\Seeder;
 use App\Domain\User\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        User::factory()->create();
+        // User::factory()->create();
+        // CentroCusto::factory()->create();
     }
 }
