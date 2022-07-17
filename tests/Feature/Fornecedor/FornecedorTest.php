@@ -99,4 +99,38 @@ class FornecedorTest extends TestCase
             'cnpj' => $fornecedor->cnpj,
         ]);
     }
+
+    public function test_deve_atualizar_fornecedor()
+    {
+        $this->withExceptionHandling();
+        // Arrange
+        $user = User::factory()->create();
+        $fornecedor = Fornecedor::factory()->create();
+        $novoFornecedor = Fornecedor::factory()->make();
+
+        // Action
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => '12345678',
+        ]);
+        $token = $response->json('token')['access_token'];
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])
+                         ->put(route('fornecedor.update', $fornecedor->uuid), [
+                            'nome_razao_social' => $novoFornecedor->nome_razao_social,
+                            'email' => $novoFornecedor->email,
+                            'cnpj' => $novoFornecedor->cnpj,
+                            'celular' => $novoFornecedor->celular,
+                            'tipo_fornecedor' => $novoFornecedor->tipo_fornecedor,
+                            'status' => $novoFornecedor->status,
+                         ]);
+
+        // Assert
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('fornecedores', [
+            'nome_razao_social' => $novoFornecedor->nome_razao_social,
+            'email' => $novoFornecedor->email,
+            'cnpj' => $novoFornecedor->cnpj
+        ]);
+    }
 }
