@@ -20,10 +20,10 @@ class RegisterAction
         $user->save();
 
         event(new Registered($user));
-        
+
         $token = auth()->login($user);
-        
-        return $this->respondWithToken($token); // TODO: Criar um helper para retornar o token
+
+        return $this->respondWithToken($token);
     }
 
     /**
