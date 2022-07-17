@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ProdutoTest extends TestCase
 {
+    use RefreshDatabase;
 
     public function test_deve_estar_autenticado_para_listar_produto()
     {
@@ -89,7 +90,6 @@ class ProdutoTest extends TestCase
 
     public function test_deve_atualizar_produto()
     {
-        $this->withExceptionHandling();
         // Arrange
         $user = User::factory()->create();
         $produto = Produto::factory()->create();
@@ -116,6 +116,32 @@ class ProdutoTest extends TestCase
         $this->assertDatabaseHas('produtos', [
             'nome' => $novoProduto->nome,
             'codigo' => $novoProduto->codigo
+        ]);
+    }
+
+    public function test_deve_deletar_produto()
+    {
+        // Arrange
+        $user = User::factory()->create([
+            'password' => bcrypt('Reis@12345678')
+        ]);
+        $produto = Produto::factory()->create();
+
+        // Action
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => 'Reis@12345678',
+        ]);
+        $token = $response->json('token')['access_token'];
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])
+                         ->delete(route('produto.delete', $produto->uuid));
+
+        // Assert
+        $response->assertStatus(200);
+        // Ausente no Banco de dados
+        $this->assertDatabaseMissing('produtos', [
+            'uuid' => $produto->uuid,
         ]);
     }
 }
