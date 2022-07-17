@@ -86,4 +86,36 @@ class ProdutoTest extends TestCase
             'nome' => $produto->nome,
         ]);
     }
+
+    public function test_deve_atualizar_produto()
+    {
+        $this->withExceptionHandling();
+        // Arrange
+        $user = User::factory()->create();
+        $produto = Produto::factory()->create();
+        $novoProduto = Produto::factory()->make();
+
+        // Action
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => '12345678',
+        ]);
+        $token = $response->json('token')['access_token'];
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])
+                         ->put(route('produto.update', $produto->uuid), [
+                            'nome' => $novoProduto->nome,
+                            'codigo' => $novoProduto->codigo,
+                            'descricao' => $novoProduto->descricao,
+                            'unidade_medida' => $novoProduto->unidade_medida,
+                            'centro_custo_uuid' => $novoProduto->centro_custo_uuid,
+                         ]);
+
+        // Assert
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('produtos', [
+            'nome' => $novoProduto->nome,
+            'codigo' => $novoProduto->codigo
+        ]);
+    }
 }
