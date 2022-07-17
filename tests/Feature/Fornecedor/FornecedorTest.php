@@ -74,4 +74,29 @@ class FornecedorTest extends TestCase
             ]
         ])->assertStatus(200);
     }
+
+    public function test_deve_cadastrar_fornecedor()
+    {
+        // Arrange
+        $user = User::factory()->create([
+            'password' => bcrypt('Reis@12345678'),
+        ]);
+        $fornecedor = Fornecedor::factory()->make();
+
+        // Action
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => 'Reis@12345678',
+        ]);
+        $token = $response->json('token')['access_token'];
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])
+                         ->post(route('fornecedor.store'), $fornecedor->toArray());
+
+        // Assert
+        $response->assertStatus(201);
+        $this->assertDatabaseHas('fornecedores', [
+            'cnpj' => $fornecedor->cnpj,
+        ]);
+    }
 }
