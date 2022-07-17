@@ -25,4 +25,19 @@ abstract class DTOAbstract implements IDTOAbstract
         return json_encode($this->toArray());
     }
 
+    /**
+     * @param array $data
+     * @return self
+    */
+    public function fromArray(array $data): self
+    {
+        foreach ($data as $key => $value) {
+            if (property_exists($this, $key) && !blank($value)) {
+                $this->{$key} = $value;
+            }
+        }
+
+        return $this;
+    }
+
 }

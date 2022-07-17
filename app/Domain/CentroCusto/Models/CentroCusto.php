@@ -3,8 +3,9 @@
 namespace App\Domain\CentroCusto\Models;
 
 use App\Models\UuidTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Database\Factories\CentroCustoFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CentroCusto extends Model
 {
@@ -16,9 +17,18 @@ class CentroCusto extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d h:i:s',
+        'updated_at' => 'datetime:Y-m-d h:i:s'
+    ];
 
     protected $fillable = [
         'nome',
     ];
+
+    protected static function newFactory()
+    {
+        return CentroCustoFactory::new();
+    }
 
 }

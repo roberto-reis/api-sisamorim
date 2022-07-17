@@ -5,6 +5,7 @@ namespace App\Domain\Produto\Models;
 use App\Models\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Domain\CentroCusto\Models\CentroCusto;
+use Database\Factories\ProdutoFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Produto extends Model
@@ -16,6 +17,11 @@ class Produto extends Model
     protected $primaryKey = 'uuid';
     public $incrementing = false;
     protected $keyType = 'string';
+
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d h:i:s',
+        'updated_at' => 'datetime:Y-m-d h:i:s'
+    ];
 
     protected $fillable = [
         'centro_custo_uuid',
@@ -29,6 +35,11 @@ class Produto extends Model
         'estoque',
         'foto_url'
     ];
+
+    protected static function newFactory()
+    {
+        return ProdutoFactory::new();
+    }
 
     public function centroCusto()
     {

@@ -4,6 +4,7 @@ namespace App\Domain\Fornecedor\Models;
 
 use App\Models\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
+use Database\Factories\FornecedorFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Fornecedor extends Model
@@ -46,4 +47,9 @@ class Fornecedor extends Model
         'tipo_conta',
         'status',
     ];
+
+    protected static function newFactory()
+    {
+        return FornecedorFactory::new();
+    }
 }

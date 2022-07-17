@@ -3,8 +3,9 @@
 namespace App\Domain\User\DTO;
 
 use App\Domain\User\Requests\RegisterRequest;
+use App\Shared\DTO\DTOAbstract;
 
-class RegisterDTO
+class RegisterDTO extends DTOAbstract
 {
     /** @var string */
     public $first_name;
@@ -19,23 +20,14 @@ class RegisterDTO
     public $password;
 
 
-    public function __construct(string $first_name, string $last_name, string $email, string $password)
+    public function register(string $first_name, string $last_name, string $email, string $password): self
     {
         $this->first_name = $first_name;
         $this->last_name = $last_name;
         $this->email = $email;
         $this->password = $password;
-    }
 
-    public static function register(array $data): RegisterDTO
-    {
-        return new self(
-            $data['first_name'],
-            $data['last_name'],
-            $data['email'],
-            $data['password']
-        );
+        return $this;
     }
-
 
 }

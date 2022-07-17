@@ -43,9 +43,9 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'fist_name.required' => 'O campo nome é obrigatório',
-            'fist_name.string' => 'O campo nome deve ser um texto',
-            'fist_name.max' => 'O campo nome deve ter no máximo 255 caracteres',
+            'first_name.required' => 'O campo nome é obrigatório',
+            'first_name.string' => 'O campo nome deve ser um texto',
+            'first_name.max' => 'O campo nome deve ter no máximo 255 caracteres',
             'last_name.required' => 'O campo sobrenome é obrigatório',
             'last_name.string' => 'O campo sobrenome deve ser um texto',
             'last_name.max' => 'O campo sobrenome deve ter no máximo 255 caracteres',
