@@ -23,14 +23,14 @@ class ProdutoFactory extends Factory
 
         return [
             'centro_custo_uuid' => CentroCusto::factory()->create()->uuid,
-            'codigo'            => $this->faker->unique()->numberBetween(1, 99999),
+            'codigo'            => (string) $this->faker->unique()->numberBetween(1, 99999),
             'nome'              => $this->faker->name,
             'descricao'         => $this->faker->text(100),
             'unidade_medida'    => $this->faker->randomElement($unidadeMedida),
             'cor'               => $this->faker->word,
             'preco_custo'       => $this->faker->randomFloat(2, 0, 100),
             'pecentual_lucro'   => $this->faker->randomFloat(2, 0, 100),
-            'estoque'           => $this->faker->randomFloat(2, 0, 100),
+            'estoque'           => $this->faker->randomNumber(1, 999),
             'foto_url'          => $this->faker->text(100),
         ];
     }
