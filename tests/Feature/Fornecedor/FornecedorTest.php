@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FornecedorTest extends TestCase
 {
+    use RefreshDatabase;
 
     public function test_deve_estar_autenticado_para_listar_fornecedor()
     {   // Arrange
@@ -131,6 +132,32 @@ class FornecedorTest extends TestCase
             'nome_razao_social' => $novoFornecedor->nome_razao_social,
             'email' => $novoFornecedor->email,
             'cnpj' => $novoFornecedor->cnpj
+        ]);
+    }
+
+    public function test_deve_deletar_fornecedor()
+    {
+        // Arrange
+        $user = User::factory()->create([
+            'password' => bcrypt('Reis@12345678')
+        ]);
+        $fornecedor = Fornecedor::factory()->create();
+
+        // Action
+        $response = $this->post(route('login'), [
+            'email' => $user->email,
+            'password' => 'Reis@12345678',
+        ]);
+        $token = $response->json('token')['access_token'];
+
+        $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])
+                         ->delete(route('fornecedor.delete', $fornecedor->uuid));
+
+        // Assert
+        $response->assertStatus(200);
+        // Ausente no Banco de dados
+        $this->assertDatabaseMissing('fornecedores', [
+            'uuid' => $fornecedor->uuid,
         ]);
     }
 }
