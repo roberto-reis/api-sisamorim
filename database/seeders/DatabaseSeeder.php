@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Domain\CentroCusto\Models\CentroCusto;
+use App\Domain\Fornecedor\Models\Fornecedor;
 use Illuminate\Database\Seeder;
 use App\Domain\User\Models\User;
 
@@ -17,5 +18,6 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory()->create();
         // CentroCusto::factory()->create();
+        // Fornecedor::factory()->create();
     }
 }
