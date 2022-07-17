@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('codigo', 100)->unique();
             $table->string('nome', 150)->index();
             $table->longText('descricao');
-            $table->char('unidade_medida', 3);
+            $table->char('unidade_medida', 5);
             $table->string('cor', 50)->nullable();
             $table->double('preco_custo', 10, 2)->nullable();
             $table->double('pecentual_lucro', 10, 2)->nullable();

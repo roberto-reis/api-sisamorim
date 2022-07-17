@@ -5,6 +5,7 @@ namespace App\Domain\Produto\Models;
 use App\Models\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use App\Domain\CentroCusto\Models\CentroCusto;
+use Database\Factories\ProdutoFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Produto extends Model
@@ -29,6 +30,11 @@ class Produto extends Model
         'estoque',
         'foto_url'
     ];
+
+    protected static function newFactory()
+    {
+        return ProdutoFactory::new();
+    }
 
     public function centroCusto()
     {
