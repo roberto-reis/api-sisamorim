@@ -2,8 +2,7 @@
 
 namespace App\Domain\User\Actions;
 
-use App\Domain\User\DTO\LoginDTO;
-use App\Exceptions\AuthException;
+use App\Shared\DTO\User\LoginDTO;
 
 class LoginAction
 {
@@ -20,10 +19,10 @@ class LoginAction
         ];
 
         if (! $token = auth()->attempt($credentials)) {
-            throw new AuthException('Email ou senha inválidos', 401);
+            throw new \Exception('Email ou senha inválidos', 400);
         }
 
-        return $this->respondWithToken($token); // TODO: Criar um helper para retornar o token
+        return $this->respondWithToken($token);
     }
 
     /**

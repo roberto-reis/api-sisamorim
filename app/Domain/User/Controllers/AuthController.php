@@ -2,15 +2,14 @@
 
 namespace App\Domain\User\Controllers;
 
-use App\Domain\User\Actions\LoginAction;
-use App\Domain\User\Actions\RegisterAction;
-use App\Domain\User\DTO\LoginDTO;
-use App\Domain\User\DTO\RegisterDTO;
-use App\Domain\User\Requests\LoginRequest;
-use App\Domain\User\Requests\RegisterRequest;
-use App\Exceptions\AuthException;
-use App\Http\Controllers\Controller;
+use App\Shared\DTO\User\LoginDTO;
 use Illuminate\Http\JsonResponse;
+use App\Domain\User\DTO\RegisterDTO;
+use App\Http\Controllers\Controller;
+use App\Domain\User\Actions\LoginAction;
+use App\Domain\User\Requests\LoginRequest;
+use App\Domain\User\Actions\RegisterAction;
+use App\Domain\User\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
@@ -34,7 +33,7 @@ class AuthController extends Controller
                 'user' => $userLogado
             ], 200);
 
-        } catch (AuthException $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage()
