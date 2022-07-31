@@ -25,12 +25,10 @@ class AuthController extends Controller
 
             $credentialsValidated = $dto->fromArray($request->validated());
             $loginToken = $actionLogin($credentialsValidated);
-            $userLogado = auth()->user();
 
             return response()->json([
                 'message' => 'login feito com sucesso',
-                'token' => $loginToken,
-                'user' => $userLogado
+                'token' => $loginToken
             ], 200);
 
         } catch (\Exception $e) {
@@ -71,14 +69,36 @@ class AuthController extends Controller
     /**
      * Method to logout the user.
      * @return JsonResponse
-     */
+    */
+    public function user(): JsonResponse
+    {
+        return response()->json([
+            'user' => auth()->user()
+        ], 200);
+    }
+
+    /**
+     * Method to logout the user.
+     * @return JsonResponse
+    */
     public function logout(): JsonResponse
     {
-        auth()->logout();
+        try {
+            auth()->logout();
 
-        return response()->json([
-            'message' => 'Logout feito com sucesso'
-        ], 200);
+            return response()->json([
+                'message' => 'Logout feito com sucesso'
+            ], 200);
+        } catch (\Exception $e) {
+            \Log::error('Error ao registar usuário: ', [
+                'message' => $e->getMessage(),
+                'line' => $e->getLine()
+            ]);
+
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 401);
+        }
     }
 
 }
