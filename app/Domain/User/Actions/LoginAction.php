@@ -22,7 +22,7 @@ class LoginAction
             throw new \Exception('Email ou senha inválidos', 400);
         }
 
-        return $this->respondWithToken($token);
+        return responde_with_token($token);
     }
 
     /**
