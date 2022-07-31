@@ -73,7 +73,8 @@ class AuthController extends Controller
     public function user(): JsonResponse
     {
         return response()->json([
-            'user' => auth()->user()
+            'message' => 'Usuário logado',
+            'data' => auth()->user()
         ], 200);
     }
 
@@ -99,6 +100,18 @@ class AuthController extends Controller
                 'message' => $e->getMessage(),
             ], 401);
         }
+    }
+
+    /**
+     * Method to logout the user.
+     * @return JsonResponse
+    */
+    public function refresh(): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Refresh token feito com sucesso',
+            'data' => responde_with_token(auth()->refresh())
+        ], 200);
     }
 
 }
