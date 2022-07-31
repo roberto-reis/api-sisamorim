@@ -6,7 +6,7 @@ if (!function_exists('responde_with_token')) {
         return [
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60 // expires_in is in seconds
+            'expires_in' => auth()->factory()->getTTL() // expires_in is in seconds
         ];
     }
 }
