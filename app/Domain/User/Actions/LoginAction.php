@@ -19,7 +19,7 @@ class LoginAction
         ];
 
         if (! $token = auth()->attempt($credentials)) {
-            throw new \Exception('Email ou senha inválidos', 400);
+            throw new \Exception('Email ou senha inválidos', 401);
         }
 
         return responde_with_token($token);
