@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->uuid()->primary();
-            $table->boolean('situacao')->default(true)->comment('false = Inativo e true = Ativo');
             $table->string('nome', 100)->index();
             $table->string('email', 100)->unique()->nullable()->index();
             $table->char('cpf_cnpj', 14)->unique()->nullable()->index();
@@ -32,6 +31,7 @@ return new class extends Migration
             $table->string('cidade', 50)->nullable();
             $table->char('uf', 2)->nullable();
             $table->longText('observacao')->nullable();
+            $table->boolean('status')->default(true)->comment('Inativo = false e Ativo = true');
             $table->timestamps();
         });
     }
