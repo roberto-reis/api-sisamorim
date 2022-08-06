@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email', 100)->unique()->nullable()->index();
             $table->char('cpf_cnpj', 14)->unique()->nullable()->index();
             $table->char('rg', 20)->nullable();
-            $table->date('data_nascimento');
+            $table->date('data_nascimento')->nullable();
             $table->char('celular', 11)->nullable();
             $table->string('inscricao_estadual', 30)->nullable();
             $table->string('inscricao_municipal', 30)->nullable();
