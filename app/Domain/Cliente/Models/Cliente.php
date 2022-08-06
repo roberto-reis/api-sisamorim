@@ -16,6 +16,12 @@ class Cliente extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d h:i:s',
+        'updated_at' => 'datetime:Y-m-d h:i:s',
+        'status' => 'boolean'
+    ];
+
     protected $fillable = [
         'uuid',
         'nome',
