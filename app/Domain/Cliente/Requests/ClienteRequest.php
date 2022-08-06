@@ -2,6 +2,7 @@
 
 namespace App\Domain\Cliente\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ClienteRequest extends FormRequest
@@ -25,8 +26,8 @@ class ClienteRequest extends FormRequest
     {
         return [
             'nome' => ['required', 'string', 'max:100'],
-            'email' => ['nullable', 'string', 'max:100', 'email', 'unique:clientes'],
-            'cpf_cnpj' => ['nullable', 'string', 'max:14', 'unique:clientes'],
+            'email' => ['nullable', 'string', 'max:100', 'email', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
+            'cpf_cnpj' => ['nullable', 'string', 'max:14', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
             'rg' => ['nullable', 'string', 'max:20'],
             'data_nascimento' => ['nullable', 'date'],
             'celular' => ['nullable', 'string', 'max:11'],
