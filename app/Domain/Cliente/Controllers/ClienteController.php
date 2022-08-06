@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Shared\DTO\Cliente\ClienteDTO;
 use App\Domain\Cliente\Requests\ClienteRequest;
 use App\Domain\Cliente\Action\CreateClienteAction;
+use App\Domain\Cliente\Action\DeleteClienteAction;
 use App\Domain\Cliente\Action\UpdateClienteAction;
 
 class ClienteController extends Controller
@@ -47,6 +48,22 @@ class ClienteController extends Controller
         } catch (\Exception $excepion) {
             return response()->json([
                 'message' => 'Erro ao atualizar cliente',
+                'data' => $excepion->getMessage()
+            ], $excepion->getCode());
+        }
+    }
+
+    public function delete($uuid, DeleteClienteAction $action)
+    {
+        try {
+            $action($uuid);
+            return response()->json([
+                'message' => 'Cliente removido com sucesso'
+            ], 200);
+
+        } catch (\Exception $excepion) {
+            return response()->json([
+                'message' => 'Erro ao remover cliente',
                 'data' => $excepion->getMessage()
             ], $excepion->getCode());
         }
