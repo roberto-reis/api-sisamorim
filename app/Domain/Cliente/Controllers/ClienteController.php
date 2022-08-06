@@ -2,11 +2,12 @@
 
 namespace App\Domain\Cliente\Controllers;
 
-use App\Domain\Cliente\Action\CreateClienteAction;
-use App\Domain\Cliente\Requests\ClienteRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Shared\DTO\Cliente\ClienteDTO;
+use App\Domain\Cliente\Requests\ClienteRequest;
+use App\Domain\Cliente\Action\CreateClienteAction;
+use App\Domain\Cliente\Action\UpdateClienteAction;
 
 class ClienteController extends Controller
 {
@@ -30,6 +31,24 @@ class ClienteController extends Controller
                 'message' => 'Erro ao cadastrar cliente',
                 'data' => $excepion->getMessage()
             ], 500);
+        }
+    }
+
+    public function update($uuid, ClienteRequest $request, ClienteDTO $dto, UpdateClienteAction $action)
+    {
+        try {
+            $dadosValidados = $dto->fromArray($request->validated());
+            $cliente = $action($uuid, $dadosValidados);
+
+            return response()->json([
+                'message' => 'Cliente atualizado com sucesso',
+                'data' => $cliente
+            ], 200);
+        } catch (\Exception $excepion) {
+            return response()->json([
+                'message' => 'Erro ao atualizar cliente',
+                'data' => $excepion->getMessage()
+            ], $excepion->getCode());
         }
     }
 }
