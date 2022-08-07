@@ -2,9 +2,9 @@
 
 namespace App\Domain\CentroCusto\Actions;
 
-use App\Domain\CentroCusto\Models\CentroCusto;
-use App\Domain\CentroCusto\DTO\CentroCustoDTO;
 use App\Exceptions\CentroCustoException;
+use App\Infrastructure\Models\CentroCusto;
+use App\Domain\CentroCusto\DTO\CentroCustoDTO;
 
 class UpdateCentroCustoAction
 {
