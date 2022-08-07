@@ -3,8 +3,8 @@
 namespace Tests\Feature\Cliente;
 
 use Tests\TestCase;
-use App\Domain\User\Models\User;
-use App\Domain\Cliente\Models\Cliente;
+use App\Infrastructure\Models\User;
+use App\Infrastructure\Models\Cliente;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

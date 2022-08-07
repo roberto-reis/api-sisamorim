@@ -2,7 +2,8 @@
 
 namespace App\Domain\Cliente\Action;
 
-use App\Domain\Cliente\Models\Cliente;
+use App\Infrastructure\Models\Cliente;
+
 
 class ListClienteAction
 {
