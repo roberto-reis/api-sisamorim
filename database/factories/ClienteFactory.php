@@ -2,7 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Infrastructure\Models\Status;
 use App\Infrastructure\Models\Cliente;
+use App\Infrastructure\Models\TipoCadastro;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,13 +20,18 @@ class ClienteFactory extends Factory
      */
     public function definition()
     {
-        $uf = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SE', 'SP', 'TO'];
+        $uf = ['AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG',
+                'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO','RR', 'SC', 'SE', 'SP', 'TO'];
+
+        $tipoCadatro = TipoCadastro::all()->random();
 
         return [
+            'status_uuid'         => Status::all()->random()->uuid,
+            'tipo_cadastro_uuid'  => $tipoCadatro->uuid,
             'nome'                => $this->faker->name,
             'email'               => $this->faker->email,
-            'cpf'                 => null,
-            'cnpj'                => (string) rand(10000000000000, 99999999999999),
+            'cpf'                 => $tipoCadatro->nome == 'pessoa-fisica' ? (string)rand(10000000, 99999999) : null,
+            'cnpj'                => $tipoCadatro->nome == 'pessoa-juridica' ? (string)rand(10000000000000, 99999999999999) : null,
             'rg'                  => (string) rand(10000000, 99999999),
             'data_nascimento'     => $this->faker->date(),
             'inscricao_estadual'  => (string) rand(10000000, 99999999),
@@ -36,8 +43,7 @@ class ClienteFactory extends Factory
             'complemento'         => $this->faker->text(20),
             'cidade'              => $this->faker->city,
             'uf'                  => $this->faker->randomElement($uf),
-            'observacao'          => $this->faker->text(150),
-            'status'              => $this->faker->boolean,
+            'observacao'          => $this->faker->text(150)
         ];
     }
 }
