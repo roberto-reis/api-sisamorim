@@ -4,6 +4,10 @@ namespace App\Domain\Cliente\Action;
 
 use App\Domain\Cliente\Models\Cliente;
 
+/**
+ * @param string $uuid
+ * @return bool
+ */
 class DeleteClienteAction
 {
     public function __invoke(string $uuid): bool
