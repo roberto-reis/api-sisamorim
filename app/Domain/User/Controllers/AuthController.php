@@ -4,8 +4,8 @@ namespace App\Domain\User\Controllers;
 
 use App\Shared\DTO\User\LoginDTO;
 use Illuminate\Http\JsonResponse;
-use App\Domain\User\DTO\RegisterDTO;
 use App\Http\Controllers\Controller;
+use App\Shared\DTO\User\RegisterDTO;
 use App\Domain\User\Actions\LoginAction;
 use App\Domain\User\Requests\LoginRequest;
 use App\Domain\User\Actions\RegisterAction;

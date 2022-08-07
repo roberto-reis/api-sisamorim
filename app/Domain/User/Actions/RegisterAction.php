@@ -3,7 +3,7 @@
 namespace App\Domain\User\Actions;
 
 use App\Infrastructure\Models\User;
-use App\Domain\User\DTO\RegisterDTO;
+use App\Shared\DTO\User\RegisterDTO;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 

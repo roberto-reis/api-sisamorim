@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\User\DTO;
+namespace App\Shared\DTO\User;
 
 use App\Domain\User\Requests\RegisterRequest;
 use App\Shared\DTO\DTOAbstract;
