@@ -3,8 +3,8 @@
 namespace Tests\Feature\CentroCusto;
 
 use Tests\TestCase;
-use App\Domain\User\Models\User;
-use App\Domain\CentroCusto\Models\CentroCusto;
+use App\Infrastructure\Models\User;
+use App\Infrastructure\Models\CentroCusto;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CentroCustoTest extends TestCase

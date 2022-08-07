@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nome_razao_social', 150)->index();
             $table->string('email', 150)->unique();
             $table->char('cpf', 11)->unique()->nullable();
+            $table->char('rg', 20)->nullable();
             $table->char('cnpj', 14)->unique()->nullable();
             $table->string('inscricao_estadual', 30)->nullable();
             $table->string('inscricao_municipal', 30)->nullable();

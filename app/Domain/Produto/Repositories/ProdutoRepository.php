@@ -2,8 +2,8 @@
 
 namespace App\Domain\Produto\Repositories;
 
-use App\Domain\Produto\Models\Produto;
 use Illuminate\Http\Request;
+use App\Infrastructure\Models\Produto;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProdutoRepository
@@ -17,6 +17,7 @@ class ProdutoRepository
      */
     public function getProdutos(Request $request): LengthAwarePaginator
     {
+        // TODO: mover para uma action
         $search = $request->get('search');
         $this->perPage = $request->get('perPage', $this->perPage);
         $produto = Produto::query()->with('centroCusto');

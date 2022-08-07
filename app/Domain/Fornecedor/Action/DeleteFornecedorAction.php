@@ -2,8 +2,8 @@
 
 namespace App\Domain\Fornecedor\Action;
 
-use App\Domain\Fornecedor\Models\Fornecedor;
 use App\Exceptions\FornecedorException;
+use App\Infrastructure\Models\Fornecedor;
 
 class DeleteFornecedorAction
 {

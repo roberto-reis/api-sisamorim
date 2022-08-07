@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Domain\Produto\Models;
+namespace App\Infrastructure\Models;
 
-use App\Models\UuidTrait;
-use Illuminate\Database\Eloquent\Model;
-use App\Domain\CentroCusto\Models\CentroCusto;
 use Database\Factories\ProdutoFactory;
+use Illuminate\Database\Eloquent\Model;
+use App\Infrastructure\Models\CentroCusto;
+use App\Infrastructure\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Produto extends Model

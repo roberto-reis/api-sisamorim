@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Domain\User\Models;
+namespace App\Infrastructure\Models;
 
-use App\Models\UuidTrait;
 use Laravel\Sanctum\HasApiTokens;
 use Database\Factories\UserFactory;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Infrastructure\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 

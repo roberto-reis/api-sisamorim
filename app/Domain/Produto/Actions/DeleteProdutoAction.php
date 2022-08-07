@@ -4,7 +4,7 @@ namespace App\Domain\Produto\Actions;
 
 
 use App\Exceptions\ProdutoException;
-use App\Domain\Produto\Models\Produto;
+use App\Infrastructure\Models\Produto;
 
 class DeleteProdutoAction
 {

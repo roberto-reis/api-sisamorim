@@ -2,8 +2,8 @@
 
 namespace App\Domain\User\Actions;
 
-use App\Domain\User\Models\User;
-use App\Domain\User\DTO\RegisterDTO;
+use App\Infrastructure\Models\User;
+use App\Shared\DTO\User\RegisterDTO;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
@@ -23,20 +23,6 @@ class RegisterAction
 
         $token = auth()->login($user);
 
-        return $this->respondWithToken($token);
-    }
-
-    /**
-     * Get the token array structure.
-     * @param string $token
-     * @return array
-     */
-    protected function respondWithToken(string $token): array
-    {
-        return [
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL()
-        ];
+        return responde_with_token($token);
     }
 }

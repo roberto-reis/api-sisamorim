@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Domain\User\DTO;
+namespace App\Shared\DTO\User;
 
-use App\Domain\User\Requests\LoginRequest;
 use App\Shared\DTO\DTOAbstract;
 
 class LoginDTO extends DTOAbstract

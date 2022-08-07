@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Auth;
 
-use App\Domain\User\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Infrastructure\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegistrarTest extends TestCase
 {
@@ -73,7 +73,7 @@ class RegistrarTest extends TestCase
         ])->assertStatus(302);
     }
 
-    public function test_deve_unico_o_email_no_cadastro()
+    public function test_deve_ser_unico_o_email_no_cadastro()
     {
         // Arrange
         $user = User::factory()->create();

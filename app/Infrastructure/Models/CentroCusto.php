@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Domain\CentroCusto\Models;
+namespace App\Infrastructure\Models;
 
-use App\Models\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Database\Factories\CentroCustoFactory;
+use App\Infrastructure\Models\Traits\UuidTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CentroCusto extends Model

@@ -40,6 +40,9 @@ Route::prefix('v1')->group(function(){
     // Rotas Domain Fornecedor
     require base_path('/app/Domain/Fornecedor/routes/index.php');
 
+    // Rotas Domain Cliente
+    require base_path('/app/Domain/Cliente/routes/index.php');
+
 });
 
 

@@ -2,7 +2,7 @@
 
 namespace App\Domain\Fornecedor\Action;
 
-use App\Domain\Fornecedor\Models\Fornecedor;
+use App\Infrastructure\Models\Fornecedor;
 
 class ListFornecedorAction
 {
@@ -19,7 +19,7 @@ class ListFornecedorAction
                          ->orWhere("cnpj", 'like', "%{$dataRequest['search']}%");
         }
 
-        if (isset($dataRequest['with_paginate']) && (bool) $dataRequest['with_paginate'] === false) {
+        if (isset($dataRequest['with_paginate']) && (bool)$dataRequest['with_paginate'] === false) {
             return $fornecedores->get();
         }
 

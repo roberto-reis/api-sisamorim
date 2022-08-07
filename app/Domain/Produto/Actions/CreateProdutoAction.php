@@ -2,8 +2,8 @@
 
 namespace App\Domain\Produto\Actions;
 
-use App\Domain\Produto\DTO\ProdutoDTO;
-use App\Domain\Produto\Models\Produto;
+use App\Shared\DTO\Produto\ProdutoDTO;
+use App\Infrastructure\Models\Produto;
 
 class CreateProdutoAction
 {

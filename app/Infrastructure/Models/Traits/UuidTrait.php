@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Infrastructure\Models\Traits;
 
 use Illuminate\Support\Str;
 

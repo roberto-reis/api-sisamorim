@@ -2,15 +2,14 @@
 
 namespace App\Domain\User\Controllers;
 
-use App\Domain\User\Actions\LoginAction;
-use App\Domain\User\Actions\RegisterAction;
-use App\Domain\User\DTO\LoginDTO;
-use App\Domain\User\DTO\RegisterDTO;
-use App\Domain\User\Requests\LoginRequest;
-use App\Domain\User\Requests\RegisterRequest;
-use App\Exceptions\AuthException;
-use App\Http\Controllers\Controller;
+use App\Shared\DTO\User\LoginDTO;
 use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use App\Shared\DTO\User\RegisterDTO;
+use App\Domain\User\Actions\LoginAction;
+use App\Domain\User\Requests\LoginRequest;
+use App\Domain\User\Actions\RegisterAction;
+use App\Domain\User\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
@@ -26,15 +25,13 @@ class AuthController extends Controller
 
             $credentialsValidated = $dto->fromArray($request->validated());
             $loginToken = $actionLogin($credentialsValidated);
-            $userLogado = auth()->user();
 
             return response()->json([
                 'message' => 'login feito com sucesso',
-                'token' => $loginToken,
-                'user' => $userLogado
+                'token' => $loginToken
             ], 200);
 
-        } catch (AuthException $e) {
+        } catch (\Exception $e) {
             return response()->json([
                 'success' => false,
                 'message' => $e->getMessage()
@@ -72,13 +69,48 @@ class AuthController extends Controller
     /**
      * Method to logout the user.
      * @return JsonResponse
-     */
+    */
+    public function user(): JsonResponse
+    {
+        return response()->json([
+            'message' => 'Usuário logado',
+            'data' => auth()->user()
+        ], 200);
+    }
+
+    /**
+     * Method to logout the user.
+     * @return JsonResponse
+    */
     public function logout(): JsonResponse
     {
-        auth()->logout();
+        try {
+            auth()->logout();
 
+            return response()->json([
+                'message' => 'Logout feito com sucesso'
+            ], 200);
+        } catch (\Exception $e) {
+            \Log::error('Error ao registar usuário: ', [
+                'message' => $e->getMessage(),
+                'line' => $e->getLine()
+            ]);
+
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 401);
+        }
+    }
+
+    /**
+     * Method to logout the user.
+     * @return JsonResponse
+    */
+    public function refresh(): JsonResponse
+    {
         return response()->json([
-            'message' => 'Logout feito com sucesso'
+            'message' => 'Refresh token feito com sucesso',
+            'data' => responde_with_token(auth()->refresh())
         ], 200);
     }
 

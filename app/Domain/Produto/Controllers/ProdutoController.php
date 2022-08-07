@@ -2,16 +2,16 @@
 
 namespace App\Domain\Produto\Controllers;
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Exceptions\ProdutoException;
+use App\Http\Controllers\Controller;
+use App\Shared\DTO\Produto\ProdutoDTO;
+use App\Domain\Produto\Requests\ProdutoRequest;
 use App\Domain\Produto\Actions\CreateProdutoAction;
 use App\Domain\Produto\Actions\DeleteProdutoAction;
 use App\Domain\Produto\Actions\UpdateProdutoAction;
-use App\Domain\Produto\DTO\ProdutoDTO;
 use App\Domain\Produto\Repositories\ProdutoRepository;
-use App\Domain\Produto\Requests\ProdutoRequest;
-use App\Exceptions\ProdutoException;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class ProdutoController extends Controller
 {

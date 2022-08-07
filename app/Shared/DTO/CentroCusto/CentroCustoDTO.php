@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\CentroCusto\DTO;
+namespace App\Shared\DTO\CentroCusto;
 
 use App\Shared\DTO\DTOAbstract;
 

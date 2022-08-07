@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Domain\CentroCusto\Models\CentroCusto;
-use App\Domain\Produto\Models\Produto;
+use App\Infrastructure\Models\Produto;
+use App\Infrastructure\Models\CentroCusto;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**

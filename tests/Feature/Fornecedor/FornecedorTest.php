@@ -3,8 +3,8 @@
 namespace Tests\Feature\Fornecedor;
 
 use Tests\TestCase;
-use App\Domain\User\Models\User;
-use App\Domain\Fornecedor\Models\Fornecedor;
+use App\Infrastructure\Models\User;
+use App\Infrastructure\Models\Fornecedor;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FornecedorTest extends TestCase
