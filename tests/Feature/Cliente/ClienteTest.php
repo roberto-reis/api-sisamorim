@@ -75,8 +75,6 @@ class ClienteTest extends TestCase
         ]);
         $cliente = Cliente::factory()->make();
 
-        // dd($cliente);
-
         // Action
         $response = $this->post(route('login'), [
             'email' => $user->email,

@@ -7,6 +7,7 @@ use Database\Factories\ClienteFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Infrastructure\Models\TipoCadastro;
 use App\Infrastructure\Models\Traits\UuidTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cliente extends Model
@@ -57,6 +58,20 @@ class Cliente extends Model
     {
         return $this->belongsTo(TipoCadastro::class, 'tipo_cadastro_uuid', 'uuid');
     }
+
+    // public function cpf(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => formata_cpf_cnpj($value),
+    //     );
+    // }
+
+    // public function cnpj(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: fn ($value) => formata_cpf_cnpj($value),
+    //     );
+    // }
 
     protected static function newFactory()
     {
