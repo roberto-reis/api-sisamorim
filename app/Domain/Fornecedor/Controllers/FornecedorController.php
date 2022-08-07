@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Exceptions\FornecedorException;
-use App\Domain\Fornecedor\DTO\FornecedorDTO;
+use App\Shared\DTO\Fornecedor\FornecedorDTO;
 use App\Domain\Fornecedor\Requests\FornecedorRequest;
+use App\Domain\Fornecedor\Action\ListFornecedorAction;
 use App\Domain\Fornecedor\Action\CreateFornecedorAction;
 use App\Domain\Fornecedor\Action\DeleteFornecedorAction;
-use App\Domain\Fornecedor\Action\ListFornecedorAction;
 use App\Domain\Fornecedor\Action\UpdateFornecedorAction;
 
 class FornecedorController extends Controller

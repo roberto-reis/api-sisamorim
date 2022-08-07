@@ -4,7 +4,7 @@ namespace App\Domain\Fornecedor\Action;
 
 use App\Exceptions\FornecedorException;
 use App\Infrastructure\Models\Fornecedor;
-use App\Domain\Fornecedor\DTO\FornecedorDTO;
+use App\Shared\DTO\Fornecedor\FornecedorDTO;
 
 class UpdateFornecedorAction
 {

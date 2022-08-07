@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Fornecedor\DTO;
+namespace App\Shared\DTO\Fornecedor;
 
 use App\Shared\DTO\DTOAbstract;
 
