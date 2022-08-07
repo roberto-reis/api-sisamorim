@@ -27,7 +27,8 @@ class ClienteRequest extends FormRequest
         return [
             'nome' => ['required', 'string', 'max:100'],
             'email' => ['nullable', 'string', 'max:100', 'email', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
-            'cpf_cnpj' => ['nullable', 'string', 'max:14', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
+            'cpf' => ['nullable', 'string', 'max:11', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
+            'cnpj' => ['nullable', 'string', 'max:14', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
             'rg' => ['nullable', 'string', 'max:20'],
             'data_nascimento' => ['nullable', 'date'],
             'celular' => ['nullable', 'string', 'max:11'],
@@ -41,7 +42,7 @@ class ClienteRequest extends FormRequest
             'cidade' => ['nullable', 'string', 'max:50'],
             'uf' => ['nullable', 'string', 'max:2'],
             'observacao' => ['nullable', 'string', 'max:255'],
-            'status' => ['required', 'string', 'max:1', 'in:0,1'],
+            'status' => ['required', 'boolean'],
         ];
     }
 
@@ -60,9 +61,12 @@ class ClienteRequest extends FormRequest
             'email.max' => 'O campo email deve ter no máximo 100 caracteres',
             'email.email' => 'O campo email deve ser um e-mail válido',
             'email.unique' => 'O campo email deve ser único',
-            'cpf_cnpj.string' => 'O campo cpf/cnpj deve ser uma string',
-            'cpf_cnpj.max' => 'O campo cpf/cnpj deve ter no máximo 14 caracteres',
-            'cpf_cnpj.unique' => 'O campo cpf/cnpj deve ser único',
+            'cpf.string' => 'O campo cpf deve ser uma string',
+            'cpf.max' => 'O campo cpf deve ter no máximo 11 caracteres',
+            'cpf.unique' => 'O campo cpf deve ser único',
+            'cnpj.string' => 'O campo cnpj deve ser uma string',
+            'cnpj.max' => 'O campo cnpj deve ter no máximo 14 caracteres',
+            'cnpj.unique' => 'O campo cnpj deve ser único',
             'rg.string' => 'O campo rg deve ser uma string',
             'rg.max' => 'O campo rg deve ter no máximo 20 caracteres',
             'data_nascimento.date' => 'O campo data de nascimento deve ser uma data válida',

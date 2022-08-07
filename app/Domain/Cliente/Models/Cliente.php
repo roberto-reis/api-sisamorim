@@ -3,8 +3,9 @@
 namespace App\Domain\Cliente\Models;
 
 use App\Models\UuidTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Database\Factories\ClienteFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Cliente extends Model
 {
@@ -26,7 +27,8 @@ class Cliente extends Model
         'uuid',
         'nome',
         'email',
-        'cpf_cnpj',
+        'cpf',
+        'cnpj',
         'rg',
         'data_nascimento',
         'celular',
@@ -42,4 +44,9 @@ class Cliente extends Model
         'observacao',
         'status',
     ];
+
+    protected static function newFactory()
+    {
+        return ClienteFactory::new();
+    }
 }

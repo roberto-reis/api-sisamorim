@@ -13,7 +13,8 @@ class CreateClienteAction
         $cliente = new Cliente();
         $cliente->nome = $dto->nome;
         $cliente->email = $dto->email;
-        $cliente->cpf_cnpj = $dto->cpf_cnpj; // TODO: criar um helper tratar removendo pontos e traços
+        $cliente->cpf = $dto->cpf; // TODO: criar um helper tratar removendo pontos e traços
+        $cliente->cnpj = $dto->cnpj; // TODO: criar um helper tratar removendo pontos e traços
         $cliente->rg = $dto->rg; // TODO: criar um helper tratar removendo pontos e traços
         $cliente->data_nascimento = $dto->data_nascimento;
         $cliente->celular = $dto->celular;

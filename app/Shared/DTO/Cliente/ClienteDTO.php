@@ -13,7 +13,10 @@ class ClienteDTO extends DTOAbstract
     public $email;
 
     /** @var ?string */
-    public $cpf_cnpj;
+    public $cpf;
+
+    /** @var ?string */
+    public $cnpj;
 
     /** @var ?string */
     public $rg;
@@ -60,7 +63,8 @@ class ClienteDTO extends DTOAbstract
     public function register(
         string $nome,
         ?string $email,
-        ?string $cpf_cnpj,
+        ?string $cpf,
+        ?string $cnpj,
         ?string $rg,
         ?string $dataNascimento,
         ?string $celular,
@@ -78,7 +82,8 @@ class ClienteDTO extends DTOAbstract
     ): self {
         $this->nome = $nome;
         $this->email = $email;
-        $this->cpf_cnpj = $cpf_cnpj;
+        $this->cpf = $cpf;
+        $this->cnpj = $cnpj;
         $this->rg = $rg;
         $this->data_nascimento = $dataNascimento;
         $this->celular = $celular;
