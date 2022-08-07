@@ -25,6 +25,8 @@ class FornecedorRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'status_uuid' => ['required', 'string', Rule::exists('status', 'uuid')],
+            'tipo_cadastro_uuid' => ['required', 'string', Rule::exists('tipos_cadastros', 'uuid')],
             'nome_razao_social' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'max:150', 'email', Rule::unique('fornecedores')->ignore($this->uuid, 'uuid')],
             'cpf' => ['nullable', 'string', 'max:11', Rule::unique('fornecedores')->ignore($this->uuid, 'uuid')],
@@ -40,20 +42,20 @@ class FornecedorRequest extends FormRequest
             'cidade' => ['nullable', 'string', 'max:50'],
             'uf' => ['nullable', 'string', 'max:2'],
             'observacao' => ['nullable', 'string', 'max:255'],
-            'tipo_fornecedor' => ['required', 'string', 'max:20'],
             'banco' => ['nullable', 'string', 'max:50'],
             'agencia' => ['nullable', 'integer'],
             'digito_agencia' => ['nullable', 'integer'],
             'conta' => ['nullable', 'integer'],
             'digito_conta' => ['nullable', 'integer'],
-            'tipo_conta' => ['nullable', 'string', 'max:20'],
-            'status' => ['required', 'boolean']
+            'tipo_conta' => ['nullable', 'string', 'max:20']
         ];
     }
 
     public function messages(): array
     {
         return [
+            'status_uuid.exists' => 'Status não encontrado',
+            'tipo_cadastro_uuid.exists' => 'Tipo de cadastro não encontrado',
             'nome_razao_social.required' => 'O campo nome/razão social é obrigatório',
             'nome_razao_social.string' => 'O campo nome/razão social deve ser uma string',
             'nome_razao_social.max' => 'O campo nome/razão social deve ter no máximo 100 caracteres',
@@ -76,17 +78,12 @@ class FornecedorRequest extends FormRequest
             'cidade.max' => 'O campo cidade deve ter no máximo 50 caracteres',
             'uf.max' => 'O campo UF deve ter no máximo 2 caracteres',
             'observacao.max' => 'O campo observação deve ter no máximo 255 caracteres',
-            'tipo_fornecedor.required' => 'O campo tipo de fornecedor é obrigatório',
-            'tipo_fornecedor.string' => 'O campo tipo de fornecedor deve ser uma string',
-            'tipo_fornecedor.max' => 'O campo tipo de fornecedor deve ter no máximo 20 caracteres',
             'banco.max' => 'O campo banco deve ter no máximo 50 caracteres',
             'agencia.integer' => 'O campo agência deve ser um número inteiro',
             'digito_agencia.integer' => 'O campo dígito da agência deve ser um número inteiro',
             'conta.integer' => 'O campo conta deve ser um número inteiro',
             'digito_conta.integer' => 'O campo dígito da conta deve ser um número inteiro',
-            'tipo_conta.max' => 'O campo tipo de conta deve ter no máximo 20 caracteres',
-            'status.required' => 'O campo status é obrigatório',
-            'status.boolean' => 'O campo status deve ser um booleano'
+            'tipo_conta.max' => 'O campo tipo de conta deve ter no máximo 20 caracteres'
         ];
     }
 }
