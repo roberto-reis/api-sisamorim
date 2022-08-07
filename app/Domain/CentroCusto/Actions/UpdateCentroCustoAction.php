@@ -4,7 +4,7 @@ namespace App\Domain\CentroCusto\Actions;
 
 use App\Exceptions\CentroCustoException;
 use App\Infrastructure\Models\CentroCusto;
-use App\Domain\CentroCusto\DTO\CentroCustoDTO;
+use App\Shared\DTO\CentroCusto\CentroCustoDTO;
 
 class UpdateCentroCustoAction
 {

@@ -3,7 +3,7 @@
 namespace App\Domain\CentroCusto\Actions;
 
 use App\Infrastructure\Models\CentroCusto;
-use App\Domain\CentroCusto\DTO\CentroCustoDTO;
+use App\Shared\DTO\CentroCusto\CentroCustoDTO;
 
 class CreateCentroCustoAction
 {

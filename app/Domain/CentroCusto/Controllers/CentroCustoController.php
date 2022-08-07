@@ -2,16 +2,16 @@
 
 namespace App\Domain\CentroCusto\Controllers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
-use App\Domain\CentroCusto\DTO\CentroCustoDTO;
+use App\Exceptions\CentroCustoException;
+use App\Shared\DTO\CentroCusto\CentroCustoDTO;
 use App\Domain\CentroCusto\Requests\CentroCustoRequest;
 use App\Domain\CentroCusto\Actions\CreateCentroCustoAction;
 use App\Domain\CentroCusto\Actions\DeleteCentroCustoAction;
 use App\Domain\CentroCusto\Actions\UpdateCentroCustoAction;
 use App\Domain\CentroCusto\Repositories\CentroCustoRepository;
-use App\Exceptions\CentroCustoException;
-use Illuminate\Http\Request;
 
 class CentroCustoController extends Controller
 {
