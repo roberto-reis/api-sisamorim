@@ -3,8 +3,8 @@
 namespace App\Domain\Fornecedor\Action;
 
 use App\Exceptions\FornecedorException;
+use App\Infrastructure\Models\Fornecedor;
 use App\Domain\Fornecedor\DTO\FornecedorDTO;
-use App\Domain\Fornecedor\Models\Fornecedor;
 
 class UpdateFornecedorAction
 {

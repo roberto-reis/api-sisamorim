@@ -2,7 +2,7 @@
 
 namespace App\Domain\Fornecedor\Action;
 
-use App\Domain\Fornecedor\Models\Fornecedor;
+use App\Infrastructure\Models\Fornecedor;
 
 class ListFornecedorAction
 {
