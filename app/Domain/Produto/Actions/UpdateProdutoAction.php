@@ -3,7 +3,7 @@
 namespace App\Domain\Produto\Actions;
 
 use App\Exceptions\ProdutoException;
-use App\Domain\Produto\DTO\ProdutoDTO;
+use App\Shared\DTO\Produto\ProdutoDTO;
 use App\Infrastructure\Models\Produto;
 
 class UpdateProdutoAction

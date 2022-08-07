@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Produto\DTO;
+namespace App\Shared\DTO\Produto;
 
 use App\Domain\Produto\Requests\ProdutoRequest;
 use App\Shared\DTO\DTOAbstract;
