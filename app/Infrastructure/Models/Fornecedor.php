@@ -2,10 +2,12 @@
 
 namespace App\Infrastructure\Models;
 
+use App\Infrastructure\Models\Status;
 use Illuminate\Database\Eloquent\Model;
 use Database\Factories\FornecedorFactory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Infrastructure\Models\TipoCadastro;
 use App\Infrastructure\Models\Traits\UuidTrait;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Fornecedor extends Model
 {
@@ -23,6 +25,9 @@ class Fornecedor extends Model
     ];
 
     protected $fillable = [
+        'uuid',
+        'status_uuid',
+        'tipo_cadastro_uuid',
         'nome_razao_social',
         'email',
         'cpf',
@@ -38,15 +43,23 @@ class Fornecedor extends Model
         'cidade',
         'uf',
         'observacao',
-        'tipo_fornecedor',
         'banco',
         'agencia',
         'digito_agencia',
         'conta',
         'digito_conta',
-        'tipo_conta',
-        'status',
+        'tipo_conta'
     ];
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status_uuid', 'uuid');
+    }
+
+    public function tipoCadastro()
+    {
+        return $this->belongsTo(TipoCadastro::class, 'tipo_cadastro_uuid', 'uuid');
+    }
 
     protected static function newFactory()
     {

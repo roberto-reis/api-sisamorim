@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('fornecedores', function (Blueprint $table) {
             $table->uuid('uuid')->primary();
+            $table->foreignUuid('status_uuid')->index();
+            $table->foreignUuid('tipo_cadastro_uuid')->index();
             $table->string('nome_razao_social', 150)->index();
             $table->string('email', 150)->unique();
             $table->char('cpf', 11)->unique()->nullable();
@@ -31,15 +33,16 @@ return new class extends Migration
             $table->string('cidade', 50)->nullable();
             $table->char('uf', 2)->nullable();
             $table->text('observacao')->nullable();
-            $table->string('tipo_fornecedor', 20);
             $table->string('banco', 50)->nullable();
             $table->integer('agencia')->nullable();
             $table->integer('digito_agencia')->nullable();
             $table->integer('conta')->nullable();
             $table->integer('digito_conta')->nullable();
             $table->string('tipo_conta')->nullable();
-            $table->boolean('status')->default(true)->comment('Ativo = true | Inativo = false');
             $table->timestamps();
+
+            $table->foreign('status_uuid')->references('uuid')->on('status');
+            $table->foreign('tipo_cadastro_uuid')->references('uuid')->on('tipos_cadastros');
         });
     }
 

@@ -43,6 +43,8 @@ class ClienteTest extends TestCase
             'data' => [
                 'data' => [
                     0 => [
+                        'status_uuid',
+                        'tipo_cadastro_uuid',
                         'nome',
                         'email',
                         'cpf',
@@ -58,8 +60,7 @@ class ClienteTest extends TestCase
                         'complemento',
                         'cidade',
                         'uf',
-                        'observacao',
-                        'status',
+                        'observacao'
                     ]
                 ]
             ]
@@ -110,11 +111,12 @@ class ClienteTest extends TestCase
 
         $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])
                          ->put(route('clientes.update', $cliente->uuid), [
+                            'status_uuid' => $novoCliente->status_uuid,
+                            'tipo_cadastro_uuid' => $novoCliente->tipo_cadastro_uuid,
                             'nome' => $novoCliente->nome,
                             'email' => $novoCliente->email,
                             'cnpj' => $novoCliente->cnpj,
                             'celular' => $novoCliente->celular,
-                            'status' => $novoCliente->status,
                          ]);
 
         // Assert

@@ -15,6 +15,8 @@ return new class extends Migration
     {
         Schema::create('clientes', function (Blueprint $table) {
             $table->uuid()->primary();
+            $table->foreignUuid('status_uuid')->index();
+            $table->foreignUuid('tipo_cadastro_uuid')->index();
             $table->string('nome', 100)->index();
             $table->string('email', 100)->unique()->nullable()->index();
             $table->char('cpf', 11)->unique()->nullable()->index();
@@ -32,8 +34,10 @@ return new class extends Migration
             $table->string('cidade', 50)->nullable();
             $table->char('uf', 2)->nullable();
             $table->longText('observacao')->nullable();
-            $table->boolean('status')->default(true)->comment('Inativo = false e Ativo = true');
             $table->timestamps();
+
+            $table->foreign('status_uuid')->references('uuid')->on('status');
+            $table->foreign('tipo_cadastro_uuid')->references('uuid')->on('tipos_cadastros');
         });
     }
 

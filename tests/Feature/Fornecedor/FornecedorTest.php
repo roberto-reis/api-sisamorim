@@ -45,6 +45,8 @@ class FornecedorTest extends TestCase
                 'data' => [
                     0 => [
                         'uuid',
+                        'status_uuid',
+                        'tipo_cadastro_uuid',
                         'nome_razao_social',
                         'email',
                         'cpf',
@@ -60,14 +62,12 @@ class FornecedorTest extends TestCase
                         'cidade',
                         'uf',
                         'observacao',
-                        'tipo_fornecedor',
                         'banco',
                         'agencia',
                         'digito_agencia',
                         'conta',
                         'digito_conta',
                         'tipo_conta',
-                        'status',
                         'created_at',
                         'updated_at',
                     ]
@@ -97,7 +97,8 @@ class FornecedorTest extends TestCase
         // Assert
         $response->assertStatus(201);
         $this->assertDatabaseHas('fornecedores', [
-            'cnpj' => $fornecedor->cnpj,
+            'nome_razao_social' => $fornecedor->nome_razao_social,
+            'email' => $fornecedor->email,
         ]);
     }
 
@@ -118,20 +119,19 @@ class FornecedorTest extends TestCase
 
         $response = $this->withHeaders(['Authorization' => 'Bearer ' . $token])
                          ->put(route('fornecedor.update', $fornecedor->uuid), [
+                            'status_uuid' => $novoFornecedor->status_uuid,
+                            'tipo_cadastro_uuid' => $novoFornecedor->tipo_cadastro_uuid,
                             'nome_razao_social' => $novoFornecedor->nome_razao_social,
                             'email' => $novoFornecedor->email,
                             'cnpj' => $novoFornecedor->cnpj,
                             'celular' => $novoFornecedor->celular,
-                            'tipo_fornecedor' => $novoFornecedor->tipo_fornecedor,
-                            'status' => $novoFornecedor->status,
                          ]);
 
         // Assert
         $response->assertStatus(200);
         $this->assertDatabaseHas('fornecedores', [
             'nome_razao_social' => $novoFornecedor->nome_razao_social,
-            'email' => $novoFornecedor->email,
-            'cnpj' => $novoFornecedor->cnpj
+            'email' => $novoFornecedor->email
         ]);
     }
 

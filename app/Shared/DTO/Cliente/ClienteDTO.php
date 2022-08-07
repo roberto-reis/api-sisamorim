@@ -7,6 +7,12 @@ use App\Shared\DTO\DTOAbstract;
 class ClienteDTO extends DTOAbstract
 {
     /** @var string */
+    public $status_uuid;
+
+    /** @var string */
+    public $tipo_cadastro_uuid;
+
+    /** @var string */
     public $nome;
 
     /** @var ?string */
@@ -57,10 +63,9 @@ class ClienteDTO extends DTOAbstract
     /** @var ?string */
     public $observacao;
 
-    /** @var bool */
-    public $status;
-
     public function register(
+        string $status_uuid,
+        string $tipo_cadastro_uuid,
         string $nome,
         ?string $email,
         ?string $cpf,
@@ -78,8 +83,9 @@ class ClienteDTO extends DTOAbstract
         ?string $cidade,
         ?string $uf,
         ?string $observacao,
-        bool $status
     ): self {
+        $this->status_uuid = $status_uuid;
+        $this->tipo_cadastro_uuid = $tipo_cadastro_uuid;
         $this->nome = $nome;
         $this->email = $email;
         $this->cpf = $cpf;
@@ -97,7 +103,6 @@ class ClienteDTO extends DTOAbstract
         $this->cidade = $cidade;
         $this->uf = $uf;
         $this->observacao = $observacao;
-        $this->status = $status;
 
         return $this;
     }

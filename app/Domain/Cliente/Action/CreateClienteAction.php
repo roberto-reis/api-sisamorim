@@ -11,16 +11,18 @@ class CreateClienteAction
     public function __invoke(ClienteDTO $dto)
     {
         $cliente = new Cliente();
+        $cliente->status_uuid = $dto->status_uuid;
+        $cliente->tipo_cadastro_uuid = $dto->tipo_cadastro_uuid;
         $cliente->nome = $dto->nome;
         $cliente->email = $dto->email;
-        $cliente->cpf = $dto->cpf; // TODO: criar um helper tratar removendo pontos e traços
-        $cliente->cnpj = $dto->cnpj; // TODO: criar um helper tratar removendo pontos e traços
-        $cliente->rg = $dto->rg; // TODO: criar um helper tratar removendo pontos e traços
+        $cliente->cpf = $dto->cpf;
+        $cliente->cnpj = $dto->cnpj;
+        $cliente->rg = $dto->rg;
         $cliente->data_nascimento = $dto->data_nascimento;
         $cliente->celular = $dto->celular;
-        $cliente->inscricao_estadual = $dto->inscricao_estadual; // TODO: criar um helper tratar removendo pontos e traços
-        $cliente->inscricao_municipal = $dto->inscricao_municipal; // TODO: criar um helper tratar removendo pontos e traços
-        $cliente->cep = $dto->cep; // TODO: criar um helper tratar removendo pontos e traços
+        $cliente->inscricao_estadual = $dto->inscricao_estadual;
+        $cliente->inscricao_municipal = $dto->inscricao_municipal;
+        $cliente->cep = $dto->cep;
         $cliente->endereco = $dto->endereco;
         $cliente->numero = $dto->numero;
         $cliente->complemento = $dto->complemento;
@@ -28,7 +30,6 @@ class CreateClienteAction
         $cliente->cidade = $dto->cidade;
         $cliente->uf = $dto->uf;
         $cliente->observacao = $dto->observacao;
-        $cliente->status = $dto->status;
         $cliente->save();
 
         return $cliente;

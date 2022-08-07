@@ -25,10 +25,12 @@ class ClienteRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'status_uuid' => ['required', 'string', Rule::exists('status', 'uuid')],
+            'tipo_cadastro_uuid' => ['required', 'string', Rule::exists('tipos_cadastros', 'uuid')],
             'nome' => ['required', 'string', 'max:100'],
             'email' => ['nullable', 'string', 'max:100', 'email', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
-            'cpf' => ['nullable', 'string', 'max:11', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
-            'cnpj' => ['nullable', 'string', 'max:14', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
+            'cpf' => ['nullable', 'digits:11', 'regex:/^[0-9]+$/', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
+            'cnpj' => ['nullable', 'digits:14', 'regex:/^[0-9]+$/', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
             'rg' => ['nullable', 'string', 'max:20'],
             'data_nascimento' => ['nullable', 'date'],
             'celular' => ['nullable', 'string', 'max:11'],
@@ -41,8 +43,7 @@ class ClienteRequest extends FormRequest
             'bairro' => ['nullable', 'string', 'max:50'],
             'cidade' => ['nullable', 'string', 'max:50'],
             'uf' => ['nullable', 'string', 'max:2'],
-            'observacao' => ['nullable', 'string', 'max:255'],
-            'status' => ['required', 'boolean'],
+            'observacao' => ['nullable', 'string', 'max:255']
         ];
     }
 
@@ -54,6 +55,8 @@ class ClienteRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'status_uuid.exists' => 'Status não encontrado',
+            'tipo_cadastro_uuid.exists' => 'Tipo de cadastro não encontrado',
             'nome.required' => 'O campo nome é obrigatório',
             'nome.string' => 'O campo nome deve ser uma string',
             'nome.max' => 'O campo nome deve ter no máximo 100 caracteres',
@@ -61,11 +64,11 @@ class ClienteRequest extends FormRequest
             'email.max' => 'O campo email deve ter no máximo 100 caracteres',
             'email.email' => 'O campo email deve ser um e-mail válido',
             'email.unique' => 'O campo email deve ser único',
-            'cpf.string' => 'O campo cpf deve ser uma string',
-            'cpf.max' => 'O campo cpf deve ter no máximo 11 caracteres',
+            'cpf.digits' => 'O campo cpf deve ter 11 dígitos',
+            'cpf.regex' => 'O campo cpf deve conter apenas números',
             'cpf.unique' => 'O campo cpf deve ser único',
-            'cnpj.string' => 'O campo cnpj deve ser uma string',
-            'cnpj.max' => 'O campo cnpj deve ter no máximo 14 caracteres',
+            'cnpj.digits' => 'O campo cnpj deve ter 14 dígitos',
+            'cnpj.regex' => 'O campo cnpj deve conter apenas números',
             'cnpj.unique' => 'O campo cnpj deve ser único',
             'rg.string' => 'O campo rg deve ser uma string',
             'rg.max' => 'O campo rg deve ter no máximo 20 caracteres',
@@ -74,10 +77,7 @@ class ClienteRequest extends FormRequest
             'celular.max' => 'O campo celular deve ter no máximo 11 caracteres',
             'inscricao_estadual.string' => 'O campo inscrição estadual deve ser uma string',
             'inscricao_estadual.max' => 'O campo inscrição estadual deve ter no máximo 30 caracteres',
-            'inscricao_municipal.string' => 'O campo inscrição municipal',
-            'status.required' => 'O campo status é obrigatório',
-            'status.max' => 'O campo status deve ter no máximo 1 caracteres',
-            'status.in' => 'O campo status deve ser 0 ou 1',
+            'inscricao_municipal.string' => 'O campo inscrição municipal'
         ];
     }
 }
