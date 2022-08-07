@@ -25,6 +25,8 @@ class ClienteRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'status_uuid' => ['required', 'string', Rule::exists('status', 'uuid')],
+            'tipo_cadastro_uuid' => ['required', 'string', Rule::exists('tipos_cadastros', 'uuid')],
             'nome' => ['required', 'string', 'max:100'],
             'email' => ['nullable', 'string', 'max:100', 'email', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
             'cpf' => ['nullable', 'string', 'max:11', Rule::unique('clientes')->ignore($this->uuid, 'uuid')],
@@ -41,8 +43,7 @@ class ClienteRequest extends FormRequest
             'bairro' => ['nullable', 'string', 'max:50'],
             'cidade' => ['nullable', 'string', 'max:50'],
             'uf' => ['nullable', 'string', 'max:2'],
-            'observacao' => ['nullable', 'string', 'max:255'],
-            'status' => ['required', 'boolean'],
+            'observacao' => ['nullable', 'string', 'max:255']
         ];
     }
 
@@ -54,6 +55,8 @@ class ClienteRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'status_uuid.exists' => 'Status não encontrado',
+            'tipo_cadastro_uuid.exists' => 'Tipo de cadastro não encontrado',
             'nome.required' => 'O campo nome é obrigatório',
             'nome.string' => 'O campo nome deve ser uma string',
             'nome.max' => 'O campo nome deve ter no máximo 100 caracteres',
@@ -74,10 +77,7 @@ class ClienteRequest extends FormRequest
             'celular.max' => 'O campo celular deve ter no máximo 11 caracteres',
             'inscricao_estadual.string' => 'O campo inscrição estadual deve ser uma string',
             'inscricao_estadual.max' => 'O campo inscrição estadual deve ter no máximo 30 caracteres',
-            'inscricao_municipal.string' => 'O campo inscrição municipal',
-            'status.required' => 'O campo status é obrigatório',
-            'status.max' => 'O campo status deve ter no máximo 1 caracteres',
-            'status.in' => 'O campo status deve ser 0 ou 1',
+            'inscricao_municipal.string' => 'O campo inscrição municipal'
         ];
     }
 }
