@@ -17,7 +17,8 @@ return new class extends Migration
             $table->uuid()->primary();
             $table->string('nome', 100)->index();
             $table->string('email', 100)->unique()->nullable()->index();
-            $table->char('cpf_cnpj', 14)->unique()->nullable()->index();
+            $table->char('cpf', 11)->unique()->nullable()->index();
+            $table->char('cnpj', 14)->unique()->nullable()->index();
             $table->char('rg', 20)->nullable();
             $table->date('data_nascimento')->nullable();
             $table->char('celular', 11)->nullable();
