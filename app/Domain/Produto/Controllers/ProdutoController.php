@@ -10,6 +10,7 @@ use App\Shared\DTO\Produto\ProdutoDTO;
 use App\Domain\Produto\Requests\ProdutoRequest;
 use App\Domain\Produto\Actions\CreateProdutoAction;
 use App\Domain\Produto\Actions\DeleteProdutoAction;
+use App\Domain\Produto\Actions\ShowProdutoAction;
 use App\Domain\Produto\Actions\UpdateProdutoAction;
 use App\Domain\Produto\Repositories\ProdutoRepository;
 
@@ -19,6 +20,24 @@ class ProdutoController extends Controller
     {
         try {
             $produto = $repository->getProdutos($request);
+
+            return response()->json([
+                'message' => 'Dados retornados com sucesso.',
+                'data' => $produto,
+            ], 200);
+
+        } catch (\Exception $exception) {
+            Log::error('Ocorreu um erro ao buscar produto: ', [$exception->getMessage()]);
+            return response()->json([
+                'message' => $exception->getMessage(),
+            ], $exception->getCode());
+        }
+    }
+
+    public function show(string $uuid, ShowProdutoAction $action)
+    {
+        try {
+            $produto = $action->execute($uuid);
 
             return response()->json([
                 'message' => 'Dados retornados com sucesso.',

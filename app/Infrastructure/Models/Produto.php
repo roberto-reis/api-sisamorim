@@ -6,6 +6,7 @@ use Database\Factories\ProdutoFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Infrastructure\Models\CentroCusto;
 use App\Infrastructure\Models\Traits\UuidTrait;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Produto extends Model
@@ -36,6 +37,10 @@ class Produto extends Model
         'foto_url'
     ];
 
+    protected $appends = [
+        'preco_venda'
+    ];
+
     protected static function newFactory()
     {
         return ProdutoFactory::new();
@@ -44,6 +49,22 @@ class Produto extends Model
     public function centroCusto()
     {
         return $this->belongsTo(CentroCusto::class, 'centro_custo_uuid', 'uuid');
+    }
+
+    protected function precoVenda(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->calculaPrecoVenda((float)$this->preco_custo, (float)$this->pecentual_lucro),
+        );
+    }
+
+    private function calculaPrecoVenda(float $precoCusto, float $pecentualLucro): float|null
+    {
+        if ($precoCusto == "" || $precoCusto == null || $pecentualLucro == "" || $pecentualLucro == null) {
+            return null;
+        }
+
+        return $precoCusto + (($pecentualLucro / 100) * $precoCusto);
     }
 
 }
